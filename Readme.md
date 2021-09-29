@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Натали Белоева](https://up.htmlacademy.ru/react/8/user/1123699).
-* Наставник: `Неизвестно`.
+* Студент: [Натали Белоева](https://htmlacademy.ru/profile/id1123699).
+* Наставник: [Сергей Шершнев](https://htmlacademy.ru/profile/shv_sergey).
 
 ---
 
