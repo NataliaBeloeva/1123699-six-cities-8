@@ -4,8 +4,8 @@ import MainScreen from '../main-screen/main-screen';
 import LoginScreen from '../login-screen/login-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import PropertyScreen from '../property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
-import Card from '../card/card';
 
 type AppScreenProps = {
   cardCount: number,
@@ -23,7 +23,7 @@ function App({cardCount, placeCount}: AppScreenProps): JSX.Element {
           <LoginScreen />
         </Route>
         <Route exact path={AppRoute.Room}>
-          <Card />
+          <PropertyScreen />
         </Route>
         <PrivateRoute exact path={AppRoute.Favorites}
           render={() => <FavoritesScreen />}
