@@ -1,9 +1,9 @@
-import {getRandomUniqueInteger} from '../../utils/common';
 import Card from '../card/card';
+import Logo from '../logo/logo';
 
 type MainScreenProps = {
-  cardCount: number,
-  placeCount: number,
+  cardCount: number;
+  placeCount: number;
 }
 
 function MainScreen({cardCount, placeCount}: MainScreenProps): JSX.Element {
@@ -13,9 +13,7 @@ function MainScreen({cardCount, placeCount}: MainScreenProps): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active" href="#/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <Logo isActive />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -96,7 +94,7 @@ function MainScreen({cardCount, placeCount}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {new Array(cardCount).fill(null).map(() => <Card key={getRandomUniqueInteger(0, 1000)}/>)}
+                {new Array(cardCount).fill(null).map(() => <Card key={Math.random()} />)}
               </div>
             </section>
             <div className="cities__right-section">
