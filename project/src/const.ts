@@ -1,7 +1,7 @@
 enum AppRoute {
   Favorites = '/favorites',
   SignIn = '/login',
-  Room = '/offer/:id?',
+  Room = '/offer/:id',
   Root = '/',
 }
 

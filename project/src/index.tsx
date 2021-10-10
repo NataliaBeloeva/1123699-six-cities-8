@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
+import {offers} from './mocks/offers';
+import {reviews} from './mocks/reviews';
 
 const Setting = {
-  CARD_COUNT: 5,
   PLACE_COUNT: 312,
 };
 
 ReactDOM.render(
   <React.StrictMode>
-    <App cardCount = {Setting.CARD_COUNT} placeCount = {Setting.PLACE_COUNT}/>
+    <App placeCount = {Setting.PLACE_COUNT} offers = {offers} reviews = {reviews}/>
   </React.StrictMode>,
   document.getElementById('root'),
 );
