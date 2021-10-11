@@ -1,12 +1,13 @@
-import Card from '../card/card';
+import {Offers} from '../../types/offer';
 import Logo from '../logo/logo';
+import CardList from '../card-list/card-list';
 
 type MainScreenProps = {
-  cardCount: number;
   placeCount: number;
+  offers: Offers;
 }
 
-function MainScreen({cardCount, placeCount}: MainScreenProps): JSX.Element {
+function MainScreen({placeCount, offers}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -94,7 +95,7 @@ function MainScreen({cardCount, placeCount}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {new Array(cardCount).fill(null).map(() => <Card key={Math.random()} />)}
+                <CardList offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">
