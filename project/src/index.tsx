@@ -10,7 +10,7 @@ const Setting = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App placeCount = {Setting.PLACE_COUNT} offers = {offers} reviews = {reviews}/>
+    <App placeCount={Setting.PLACE_COUNT} offers={offers} reviews={reviews}/>
   </React.StrictMode>,
   document.getElementById('root'),
 );

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {useState} from 'react';
 import {Offer, Offers} from '../../types/offer';
 import Card from '../card/card';

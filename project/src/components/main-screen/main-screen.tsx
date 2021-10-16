@@ -1,6 +1,7 @@
 import {Offers} from '../../types/offer';
 import Logo from '../logo/logo';
 import CardList from '../card-list/card-list';
+import Map from '../map/map';
 
 type MainScreenProps = {
   placeCount: number;
@@ -8,6 +9,7 @@ type MainScreenProps = {
 }
 
 function MainScreen({placeCount, offers}: MainScreenProps): JSX.Element {
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -99,7 +101,7 @@ function MainScreen({placeCount, offers}: MainScreenProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers}/>
             </div>
           </div>
         </div>

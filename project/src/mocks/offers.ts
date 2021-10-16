@@ -5,8 +5,8 @@ const offers: Offers = [
     bedrooms: 5,
     city: {
       location: {
-        latitude: 52.370396453,
-        longitude: 4.8951285676,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
       name: 'Amsterdam',
@@ -24,8 +24,8 @@ const offers: Offers = [
     isFavorite: true,
     isPremium: true,
     location: {
-      latitude: 52.355149384342,
-      longitude: 4.673877533222,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 8,
@@ -58,8 +58,8 @@ const offers: Offers = [
     isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 4,
@@ -73,8 +73,8 @@ const offers: Offers = [
     bedrooms: 1,
     city: {
       location: {
-        latitude: 52.370396,
-        longitude: 4.895128,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
       name: 'Amsterdam',
@@ -92,8 +92,8 @@ const offers: Offers = [
     isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 52.355149384,
-      longitude: 4.67387753,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 8,
     },
     maxAdults: 2,
@@ -107,8 +107,8 @@ const offers: Offers = [
     bedrooms: 4,
     city: {
       location: {
-        latitude: 52.3703964238,
-        longitude: 4.8951285676,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
       name: 'Amsterdam',
