@@ -6,8 +6,7 @@ type FavoritesScreenProps = {
   offers: Offers;
 };
 
-function FavoritesScreen(props: FavoritesScreenProps): JSX.Element {
-  const {offers} = props;
+function FavoritesScreen({offers}: FavoritesScreenProps): JSX.Element {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   return (

@@ -1,19 +1,24 @@
 import {Link} from 'react-router-dom';
 import {getRating} from '../../utils/offer';
 import {Offer} from '../../types/offer';
+import {CardType} from '../../const';
 
 type CardProps = {
   offer: Offer;
+  cardType: string;
   handleHoverEnter?: () => void;
   handleHoverLeave?: () => void;
 };
 
 function Card(props: CardProps): JSX.Element {
-  const {offer, handleHoverEnter, handleHoverLeave} = props;
+  const {offer, cardType, handleHoverEnter, handleHoverLeave} = props;
   const {id, isFavorite, isPremium, previewImage, price, rating, title, type} = offer;
 
+  const isCitiesCard = cardType === CardType.CITY;
+  const isNearbyCard = cardType === CardType.NEARBY;
+
   return (
-    <article className="cities__place-card place-card" id={`${id}`} onMouseEnter={handleHoverEnter} onMouseLeave={handleHoverLeave}>
+    <article className={`place-card ${isCitiesCard ? 'cities__place-card' : ''} ${isNearbyCard ? 'near-places__card' : ''}`} id={`${id}`} onMouseEnter={handleHoverEnter} onMouseLeave={handleHoverLeave}>
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
