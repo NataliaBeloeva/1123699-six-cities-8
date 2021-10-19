@@ -14,8 +14,8 @@ function Card(props: CardProps): JSX.Element {
   const {offer, cardType, handleHoverEnter, handleHoverLeave} = props;
   const {id, isFavorite, isPremium, previewImage, price, rating, title, type} = offer;
 
-  const isCitiesCard = cardType === CardType.CITY;
-  const isNearbyCard = cardType === CardType.NEARBY;
+  const isCitiesCard = cardType === CardType.City;
+  const isNearbyCard = cardType === CardType.Nearby;
 
   return (
     <article className={`place-card ${isCitiesCard ? 'cities__place-card' : ''} ${isNearbyCard ? 'near-places__card' : ''}`} id={`${id}`} onMouseEnter={handleHoverEnter} onMouseLeave={handleHoverLeave}>

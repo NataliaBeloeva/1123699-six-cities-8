@@ -30,8 +30,8 @@ function Map(props: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
-  const isCitiesMap = mapType === MapType.CITY;
-  const isPropertyMap = mapType === MapType.PROPERTY;
+  const isCitiesMap = mapType === MapType.City;
+  const isPropertyMap = mapType === MapType.Property;
 
   useEffect(() => {
     if (map) {

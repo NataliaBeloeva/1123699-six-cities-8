@@ -12,13 +12,13 @@ enum AuthorizationStatus {
 }
 
 enum MapType {
-  CITY = 'city',
-  PROPERTY = 'property',
+  City = 'CITY',
+  Property = 'PROPERTY',
 }
 
 enum CardType {
-  CITY = 'city',
-  NEARBY ='nearby',
+  City = 'CITY',
+  Nearby ='NEARBY',
 }
 
 export {AppRoute, AuthorizationStatus, MapType, CardType};

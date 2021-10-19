@@ -102,11 +102,11 @@ function MainScreen(props: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={offers} cardType={CardType.CITY} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave}/>
+                <CardList offers={offers} cardType={CardType.City} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} mapType={MapType.CITY} selectedPoint={selectedPoint}/>
+              <Map offers={offers} mapType={MapType.City} selectedPoint={selectedPoint}/>
             </div>
           </div>
         </div>

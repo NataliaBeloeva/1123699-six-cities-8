@@ -115,13 +115,13 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map offers={nearbyOffers} mapType={MapType.PROPERTY} selectedPoint={selectedPoint}/>
+          <Map offers={nearbyOffers} mapType={MapType.Property} selectedPoint={selectedPoint}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardList offers={nearbyOffers} cardType={CardType.NEARBY} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave}/>
+              <CardList offers={nearbyOffers} cardType={CardType.Nearby} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave}/>
             </div>
           </section>
         </div>
