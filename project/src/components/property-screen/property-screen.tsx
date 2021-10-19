@@ -3,7 +3,7 @@ import {Offer, Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
 import {CardType, MapType} from '../../const';
 import Logo from '../logo/logo';
-import ReviewsList from '../reviews-list/reviews-list';
+import CommentList from '../comment-list/comment-list';
 import CommentFormScreen from '../comment-form/comment-form';
 import Map from '../map/map';
 import CardList from '../card-list/card-list';
@@ -110,7 +110,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                {reviews.length > 0 && <ReviewsList reviews={reviews} />}
+                {reviews.length > 0 && <CommentList reviews={reviews} />}
                 <CommentFormScreen />
               </section>
             </div>
