@@ -11,4 +11,14 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export {AppRoute, AuthorizationStatus};
+enum MapType {
+  City = 'CITY',
+  Property = 'PROPERTY',
+}
+
+enum CardType {
+  City = 'CITY',
+  Nearby ='NEARBY',
+}
+
+export {AppRoute, AuthorizationStatus, MapType, CardType};

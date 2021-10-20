@@ -1,4 +1,5 @@
-import {Offers} from '../../types/offer';
+import {Offer, Offers} from '../../types/offer';
+import {CardType, MapType} from '../../const';
 import Logo from '../logo/logo';
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
@@ -6,9 +7,13 @@ import Map from '../map/map';
 type MainScreenProps = {
   placeCount: number;
   offers: Offers;
+  selectedPoint?: Offer | undefined;
+  handleCardMouseEnter: (listItemId: number) => void;
+  handleCardMouseLeave: () => void;
 }
 
-function MainScreen({placeCount, offers}: MainScreenProps): JSX.Element {
+function MainScreen(props: MainScreenProps): JSX.Element {
+  const {placeCount, offers, handleCardMouseEnter, handleCardMouseLeave, selectedPoint} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -97,11 +102,11 @@ function MainScreen({placeCount, offers}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={offers} />
+                <CardList offers={offers} cardType={CardType.City} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers}/>
+              <Map offers={offers} mapType={MapType.City} selectedPoint={selectedPoint}/>
             </div>
           </div>
         </div>
