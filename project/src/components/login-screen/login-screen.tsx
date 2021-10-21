@@ -1,4 +1,4 @@
-import Logo from '../logo/logo';
+import Header from '../header/header';
 
 function LoginScreen(): JSX.Element {
   return (
@@ -7,11 +7,11 @@ function LoginScreen(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo isActive={false} />
             </div>
           </div>
         </div>
       </header>
+      <Header isMainPage={false} isLoginPage />
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">

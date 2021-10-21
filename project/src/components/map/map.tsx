@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useRef, useEffect} from 'react';
@@ -35,17 +36,20 @@ function Map(props: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      const {location: {latitude, longitude, zoom}} = city;
+      map.flyTo([latitude, longitude], zoom);
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
+
         marker
-          .setIcon(selectedPoint !== undefined && offer.title === selectedPoint.title ? currentCustomIcon : defaultCustomIcon)
+          .setIcon(selectedPoint !== undefined && offer.id === selectedPoint.id ? currentCustomIcon : defaultCustomIcon)
           .addTo(map);
       });
     }
-  }, [map, offers, selectedPoint]);
+  }, [map, city, offers, selectedPoint]);
 
   return (
     <section className={`map ${isCitiesMap ? 'cities__map' : ''} ${isPropertyMap ? 'property__map' : ''}`} ref={mapRef}></section>
