@@ -11,13 +11,12 @@ import {Offer, Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
 
 type AppScreenProps = {
-  placeCount: number;
   offers: Offers;
   reviews: Reviews;
 }
 
 function App(props: AppScreenProps): JSX.Element {
-  const {placeCount, offers, reviews} = props;
+  const {offers, reviews} = props;
 
   const [selectedPoint, setSelectedPoint] = useState<Offer | undefined>(undefined);
 
@@ -34,13 +33,13 @@ function App(props: AppScreenProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <MainScreen placeCount={placeCount} offers={offers} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave} selectedPoint={selectedPoint}/>
+          <MainScreen handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave} selectedPoint={selectedPoint}/>
         </Route>
         <Route exact path={AppRoute.SignIn}>
           <LoginScreen />
         </Route>
         <Route exact path={AppRoute.Room}>
-          <PropertyScreen offer={offers[0]} offers={offers} reviews={reviews} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave} selectedPoint={selectedPoint}/>
+          <PropertyScreen offer={offers[0]} offers={offers} reviews={reviews} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave} selectedPoint={undefined}/>
         </Route>
         <PrivateRoute exact path={AppRoute.Favorites}
           render={() => <FavoritesScreen  offers={offers}/>}
