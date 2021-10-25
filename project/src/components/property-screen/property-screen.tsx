@@ -1,7 +1,7 @@
 import {getRating} from '../../utils/offer';
 import {Offer, Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
-import {CardType, MapType} from '../../const';
+import {CardType, MapType, MAX_OFFERS_NEARBY_COUNT} from '../../const';
 import CommentList from '../comment-list/comment-list';
 import CommentFormScreen from '../comment-form/comment-form';
 import Map from '../map/map';
@@ -12,15 +12,12 @@ type PropertyScreenProps = {
   offer: Offer;
   offers: Offers;
   reviews: Reviews;
-  selectedPoint?: Offer | undefined;
-  handleCardMouseEnter: (listItemId: number) => void;
-  handleCardMouseLeave: () => void;
 };
 
 function PropertyScreen(props: PropertyScreenProps): JSX.Element {
-  const {offer, offers, reviews, handleCardMouseEnter, handleCardMouseLeave, selectedPoint} = props;
+  const {offer, offers, reviews} = props;
   const {bedrooms, description, goods, host, id, images, isFavorite, isPremium, maxAdults, price, rating, title, type} = offer;
-  const nearbyOffers = offers.slice(0, 3);
+  const nearbyOffers = offers.slice(0, MAX_OFFERS_NEARBY_COUNT);
 
   return (
     <div className="page">
@@ -91,13 +88,13 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map offers={nearbyOffers} mapType={MapType.Property} selectedPoint={selectedPoint}/>
+          <Map offers={nearbyOffers} mapType={MapType.Property}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardList offers={nearbyOffers} cardType={CardType.Nearby} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave}/>
+              <CardList offers={nearbyOffers} cardType={CardType.Nearby} />
             </div>
           </section>
         </div>

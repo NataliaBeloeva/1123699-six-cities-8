@@ -1,4 +1,4 @@
-import {getRating} from '../../utils/offer';
+import {formatDate, formatDateAttribute, getRating} from '../../utils/offer';
 import {Review} from '../../types/review';
 
 type ReviewProps = {
@@ -7,8 +7,6 @@ type ReviewProps = {
 
 function Comment({review}: ReviewProps): JSX.Element {
   const {id, user, reviewRating, comment, date} = review;
-  const formatDate= (datetime: string) => new Date(datetime).toLocaleDateString('en-US', {month: 'long', year: 'numeric'});
-  const formatDateAttribute = (datetime: string) => new Date(datetime).toLocaleDateString('en-CA');
 
   return (
     <li key={`${id}`} className="reviews__item" id={`${id}`}>

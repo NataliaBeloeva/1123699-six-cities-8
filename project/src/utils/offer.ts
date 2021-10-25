@@ -5,4 +5,8 @@ const getRating = (rating: number): number => {
   return roundedRating * RATING_CALC;
 };
 
-export {getRating};
+const formatDate= (date: string): string => new Date(date).toLocaleDateString('en-US', {month: 'long', year: 'numeric'});
+
+const formatDateAttribute = (date: string): string => new Date(date).toLocaleDateString('en-CA');
+
+export {getRating, formatDate, formatDateAttribute};

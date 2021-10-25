@@ -1,8 +1,8 @@
-import {CITIES} from './const';
+import {City} from '../../const';
 
 type CityListProps = {
   currentCity: string;
-  handleCitySwitch: (city: string) => void;
+  handleCitySwitch: (city: City) => void;
 }
 
 function CityList(props: CityListProps): JSX.Element {
@@ -13,7 +13,7 @@ function CityList(props: CityListProps): JSX.Element {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {CITIES.map((city) => {
+            {Object.values(City).map((city) => {
               const isCurrent = currentCity === city;
               return (
                 <li key={city} className="locations__item">

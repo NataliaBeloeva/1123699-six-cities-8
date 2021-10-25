@@ -6,19 +6,28 @@ import {CardType} from '../../const';
 type CardProps = {
   offer: Offer;
   cardType: string;
-  handleHoverEnter?: () => void;
-  handleHoverLeave?: () => void;
+  onMouseEnter?: (offerId: number) => void;
+  onMouseLeave?: () => void;
 };
 
 function Card(props: CardProps): JSX.Element {
-  const {offer, cardType, handleHoverEnter, handleHoverLeave} = props;
+  const {offer, cardType, onMouseEnter, onMouseLeave} = props;
   const {id, isFavorite, isPremium, previewImage, price, rating, title, type} = offer;
 
   const isCitiesCard = cardType === CardType.City;
   const isNearbyCard = cardType === CardType.Nearby;
 
+  const handleMouseEnter = () => {
+    onMouseEnter && onMouseEnter(offer.id);
+  };
+
+  const handleMouseLeave = () => {
+    onMouseLeave && onMouseLeave();
+  };
+
+
   return (
-    <article className={`place-card ${isCitiesCard ? 'cities__place-card' : ''} ${isNearbyCard ? 'near-places__card' : ''}`} id={`${id}`} onMouseEnter={handleHoverEnter} onMouseLeave={handleHoverLeave}>
+    <article className={`place-card ${isCitiesCard ? 'cities__place-card' : ''} ${isNearbyCard ? 'near-places__card' : ''}`} id={`${id}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
