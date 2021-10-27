@@ -8,6 +8,8 @@ import Map from '../map/map';
 import CardList from '../card-list/card-list';
 import Header from '../header/header';
 
+const MAX_IMAGES_COUNT = 6;
+
 type PropertyScreenProps = {
   offer: Offer;
   offers: Offers;
@@ -27,7 +29,7 @@ function PropertyScreen(props: PropertyScreenProps): JSX.Element {
         <section className="property" id={`${id}`}>
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {images.map((image) => (
+              {images.slice(0, MAX_IMAGES_COUNT).map((image) => (
                 <div key={Math.random()} className="property__image-wrapper">
                   <img className="property__image" src={image} alt="Studio" />
                 </div>

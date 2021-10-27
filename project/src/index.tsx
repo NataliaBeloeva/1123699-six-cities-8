@@ -1,19 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app/app';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import {offers} from './mocks/offers';
+import {AuthorizationStatus} from './const';
+import {ThunkAppDispatch} from './types/action';
 import {reviews} from './mocks/reviews';
+import App from './components/app/app';
 import {reducer} from './store/reducer';
+import {createAPI} from './services/api';
+import {requireAuthorization} from './store/action';
+import {checkAuthAction, fetchQuestionAction} from './store/api-actions';
 
-const store = createStore(reducer, composeWithDevTools());
+const api = createAPI(
+  () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
+);
+
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
+
+(store.dispatch as ThunkAppDispatch)(checkAuthAction());
+(store.dispatch as ThunkAppDispatch)(fetchQuestionAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <App offers={offers} reviews={reviews}/>
+      <App reviews={reviews}/>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
