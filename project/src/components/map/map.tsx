@@ -37,7 +37,10 @@ function Map(props: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       const {location: {latitude, longitude, zoom}} = city;
-      map.flyTo([latitude, longitude], zoom);
+      map.flyTo([latitude, longitude], zoom, {
+        animate: true,
+        duration: 2,
+      });
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -47,6 +50,11 @@ function Map(props: MapProps): JSX.Element {
         marker
           .setIcon(selectedPoint !== undefined && offer.id === selectedPoint.id ? currentCustomIcon : defaultCustomIcon)
           .addTo(map);
+
+        selectedPoint && map.flyTo([offer.location.latitude, offer.location.longitude], offer.location.zoom, {
+          animate: true,
+          duration: 2,
+        });
       });
     }
   }, [map, city, offers, selectedPoint]);

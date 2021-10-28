@@ -39,4 +39,10 @@ enum SortType {
   TopRated = 'Top rated first',
 }
 
-export {MAX_OFFERS_NEARBY_COUNT, AppRoute, AuthorizationStatus, MapType, CardType, City, SortType};
+enum APIRoute {
+  Hotels = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export {MAX_OFFERS_NEARBY_COUNT, AppRoute, AuthorizationStatus, MapType, CardType, City, SortType, APIRoute};

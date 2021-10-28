@@ -1,4 +1,5 @@
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {connect, ConnectedProps} from 'react-redux';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import MainScreen from '../main-screen/main-screen';
 import LoginScreen from '../login-screen/login-screen';
@@ -6,15 +7,23 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropertyScreen from '../property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
-import {Offers} from '../../types/offer';
 import {Reviews} from '../../types/review';
+import {State} from '../../types/state';
 
 type AppScreenProps = {
-  offers: Offers;
   reviews: Reviews;
 }
 
-function App(props: AppScreenProps): JSX.Element {
+const mapStateToProps = ({offers}: State) => ({
+  offers,
+});
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ComponentConnectedProps = AppScreenProps & PropsFromRedux;
+
+function App(props: ComponentConnectedProps): JSX.Element {
   const {offers, reviews} = props;
 
   return (
@@ -42,4 +51,5 @@ function App(props: AppScreenProps): JSX.Element {
   );
 }
 
-export default App;
+export {App};
+export default connector(App);
