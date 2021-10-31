@@ -1,30 +1,40 @@
+import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
-import {loadOffers, requireAuthorization, requireLogout} from './action';
-import {saveToken, dropToken, Token} from '../services/token';
-import {APIRoute, AuthorizationStatus} from '../const';
+import {loadOffers, redirectToRoute, requireAuthorization, userLogout, userLogin} from './action';
+import {saveToken, dropToken} from '../services/token';
+import {APIRoute, AppRoute, AuthorizationStatus, AUTH_FAIL_MESSAGE, LOGIN_FAIL_MESSAGE} from '../const';
 import {OfferFromServer} from '../types/offer';
 import {AuthData} from '../types/auth-data';
-import {adaptToClient} from '../services/adapter';
+import {UserFromServer} from '../types/user';
+import {adaptOfferToClient, adaptUserToClient} from '../services/adapter';
 
-const fetchQuestionAction = (): ThunkActionResult =>
+const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<OfferFromServer[]>(APIRoute.Hotels);
-    dispatch(loadOffers(data.map((hotel) => adaptToClient(hotel))));
+    dispatch(loadOffers(data.map((hotel) => adaptOfferToClient(hotel))));
   };
 
 const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.get(APIRoute.Login)
-      .then(() => {
-        dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      });
+    try {
+      await api.get(APIRoute.Login);
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    } catch {
+      toast.info(AUTH_FAIL_MESSAGE);
+    }
   };
 
 const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
-    saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    try {
+      const {data} = await api.post<UserFromServer>(APIRoute.Login, {email, password});
+      saveToken(data.token);
+      dispatch(userLogin(adaptUserToClient(data)));
+      dispatch(redirectToRoute(AppRoute.Root));
+
+    } catch {
+      toast.warn(LOGIN_FAIL_MESSAGE);
+    }
   };
 
 
@@ -32,7 +42,7 @@ const logoutAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(requireLogout());
+    dispatch(userLogout());
   };
 
-export {fetchQuestionAction, checkAuthAction, loginAction, logoutAction};
+export {fetchOffersAction, checkAuthAction, loginAction, logoutAction};

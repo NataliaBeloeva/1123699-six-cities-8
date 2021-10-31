@@ -1,4 +1,4 @@
-type User = {
+type Author = {
   avatarUrl: string;
   id: number;
   isPro: boolean;
@@ -10,7 +10,7 @@ type Review = {
   date: string;
   id: number;
   reviewRating: number;
-  user: User;
+  user: Author;
 };
 
 type Reviews = Review[];

@@ -1,6 +1,7 @@
-import {AuthorizationStatus} from '../const';
-import {ActionType, SwitchCityAction, SwitchSortAction, LoadOffersAction, ResetOffersAction, RequireAuthorizationAction, RequireLogoutAction} from '../types/action';
+import {AppRoute, AuthorizationStatus} from '../const';
+import {ActionType, SwitchCityAction, SwitchSortAction, LoadOffersAction, ResetOffersAction, RequireAuthorizationAction, UserLogoutAction, UserLoginAction, RedirectToRouteAction} from '../types/action';
 import {Offers} from '../types/offer';
+import {User} from '../types/user';
 
 const switchCity = (city: string): SwitchCityAction => ({
   type: ActionType.SwitchCity,
@@ -26,8 +27,18 @@ const requireAuthorization = (authStatus: AuthorizationStatus): RequireAuthoriza
   payload: authStatus,
 });
 
-const requireLogout = (): RequireLogoutAction => ({
-  type: ActionType.RequireLogout,
+const userLogin = (user: User): UserLoginAction => ({
+  type: ActionType.UserLogin,
+  payload: user,
 });
 
-export {switchCity, switchSort, loadOffers, resetOffers, requireAuthorization, requireLogout};
+const userLogout = (): UserLogoutAction => ({
+  type: ActionType.UserLogout,
+});
+
+const redirectToRoute = (url: AppRoute): RedirectToRouteAction => ({
+  type: ActionType.RedirectToRoute,
+  payload: url,
+});
+
+export {switchCity, switchSort, loadOffers, resetOffers, requireAuthorization, userLogin, userLogout, redirectToRoute};

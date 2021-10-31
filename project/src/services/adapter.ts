@@ -1,6 +1,7 @@
 import {Offer, OfferFromServer} from '../types/offer';
+import {User, UserFromServer} from '../types/user';
 
-const adaptToClient = (offer: OfferFromServer): Offer => ({
+const adaptOfferToClient = (offer: OfferFromServer): Offer => ({
   bedrooms: offer.bedrooms,
   city: {
     location: {
@@ -35,5 +36,13 @@ const adaptToClient = (offer: OfferFromServer): Offer => ({
   type: offer.type,
 });
 
+const adaptUserToClient = (user: UserFromServer): User => ({
+  avatarUrl: user.avatar_url,
+  email: user.email,
+  id: user.id,
+  isPro: user.is_pro,
+  name: user.name,
+  token: user.token,
+});
 
-export {adaptToClient};
+export {adaptOfferToClient, adaptUserToClient};

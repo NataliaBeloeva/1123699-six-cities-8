@@ -1,6 +1,6 @@
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import MainScreen from '../main-screen/main-screen';
 import LoginScreen from '../login-screen/login-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
@@ -9,6 +9,7 @@ import PropertyScreen from '../property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
 import {Reviews} from '../../types/review';
 import {State} from '../../types/state';
+import browserHistory from '../../browser-history';
 
 type AppScreenProps = {
   reviews: Reviews;
@@ -27,7 +28,7 @@ function App(props: ComponentConnectedProps): JSX.Element {
   const {offers, reviews} = props;
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.Root}>
           <MainScreen />
@@ -39,8 +40,7 @@ function App(props: ComponentConnectedProps): JSX.Element {
           <PropertyScreen offer={offers[0]} offers={offers} reviews={reviews} />
         </Route>
         <PrivateRoute exact path={AppRoute.Favorites}
-          render={() => <FavoritesScreen  offers={offers}/>}
-          authorizationStatus={AuthorizationStatus.Auth}
+          render={() => <FavoritesScreen offers={offers}/>}
         >
         </PrivateRoute>
         <Route>
