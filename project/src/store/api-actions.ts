@@ -1,8 +1,8 @@
 import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
-import {loadOffers, redirectToRoute, requireAuthorization, userLogout, userLogin} from './action';
+import {loadOffers, redirectToRoute, userLogout, userLogin} from './action';
 import {saveToken, dropToken} from '../services/token';
-import {APIRoute, AppRoute, AuthorizationStatus, AUTH_FAIL_MESSAGE, LOGIN_FAIL_MESSAGE} from '../const';
+import {APIRoute, AppRoute, AUTH_FAIL_MESSAGE, LOGIN_FAIL_MESSAGE} from '../const';
 import {OfferFromServer} from '../types/offer';
 import {AuthData} from '../types/auth-data';
 import {UserFromServer} from '../types/user';
@@ -17,8 +17,10 @@ const fetchOffersAction = (): ThunkActionResult =>
 const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      const response = await api.get(APIRoute.Login);
+      if (response.status === 200) {
+        dispatch(userLogin(adaptUserToClient(response.data)));
+      }
     } catch {
       toast.info(AUTH_FAIL_MESSAGE);
     }
@@ -31,7 +33,6 @@ const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
       saveToken(data.token);
       dispatch(userLogin(adaptUserToClient(data)));
       dispatch(redirectToRoute(AppRoute.Root));
-
     } catch {
       toast.warn(LOGIN_FAIL_MESSAGE);
     }

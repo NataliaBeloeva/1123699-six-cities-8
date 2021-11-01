@@ -37,6 +37,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.UserLogout:
       return {
         ...state,
+        user: null,
         authorizationStatus: AuthorizationStatus.NoAuth,
       };
     case ActionType.ResetOffers:

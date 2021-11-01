@@ -13,7 +13,7 @@ enum ActionType {
   RedirectToRoute = 'app/redirectToRoute',
   RequireAuthorization = 'user/requireAuthorization',
   UserLogin = 'user/login',
-  UserLogout = 'user/userLogout',
+  UserLogout = 'user/logout',
 }
 
 type SwitchCityAction = {
