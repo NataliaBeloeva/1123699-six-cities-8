@@ -8,6 +8,7 @@ const initialState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
+  user: null,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -26,10 +27,19 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {
         ...state,
         authorizationStatus: action.payload,
-        isDataLoaded: true,
       };
-    case ActionType.RequireLogout:
-      return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
+    case ActionType.UserLogin:
+      return {
+        ...state,
+        user: action.payload,
+        authorizationStatus: AuthorizationStatus.Auth,
+      };
+    case ActionType.UserLogout:
+      return {
+        ...state,
+        user: null,
+        authorizationStatus: AuthorizationStatus.NoAuth,
+      };
     case ActionType.ResetOffers:
       return {...initialState};
     default:

@@ -1,4 +1,6 @@
 const MAX_OFFERS_NEARBY_COUNT = 3;
+const AUTH_FAIL_MESSAGE = 'Do not forget to log in';
+const LOGIN_FAIL_MESSAGE = 'Please make sure all fields are filled correctly';
 
 enum AppRoute {
   Favorites = '/favorites',
@@ -45,4 +47,4 @@ enum APIRoute {
   Logout = '/logout',
 }
 
-export {MAX_OFFERS_NEARBY_COUNT, AppRoute, AuthorizationStatus, MapType, CardType, City, SortType, APIRoute};
+export {MAX_OFFERS_NEARBY_COUNT, AUTH_FAIL_MESSAGE, LOGIN_FAIL_MESSAGE, AppRoute, AuthorizationStatus, MapType, CardType, City, SortType, APIRoute};

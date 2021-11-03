@@ -1,5 +1,6 @@
 import {AuthorizationStatus} from '../const';
 import {Offers} from './offer';
+import {User} from './user';
 
 type State = {
   currentCity: string;
@@ -7,6 +8,7 @@ type State = {
   offers: Offers;
   authorizationStatus: AuthorizationStatus;
   isDataLoaded: boolean;
+  user: User | null;
 };
 
 export type {State};
