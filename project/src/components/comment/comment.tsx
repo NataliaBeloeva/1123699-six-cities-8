@@ -6,8 +6,7 @@ type ReviewProps = {
 };
 
 function Comment({review}: ReviewProps): JSX.Element {
-  const {id, user, reviewRating, comment, date} = review;
-
+  const {id, user, rating, comment, date} = review;
   return (
     <li key={`${id}`} className="reviews__item" id={`${id}`}>
       <div className="reviews__user user"id={`${user.id}`}>
@@ -19,7 +18,7 @@ function Comment({review}: ReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${getRating(reviewRating)}%`}}></span>
+            <span style={{width: `${getRating(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

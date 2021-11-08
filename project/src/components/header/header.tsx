@@ -1,9 +1,9 @@
 import {connect, ConnectedProps} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthStatus} from '../../const';
 import {ThunkAppDispatch} from '../../types/action';
 import {State} from '../../types/state';
-import {logoutAction} from '../../store/api-actions';
+import {logout} from '../../store/api-action';
 import Logo from '../logo/logo';
 
 type HeaderProps = {
@@ -11,14 +11,14 @@ type HeaderProps = {
   isLoginPage: boolean;
 }
 
-const mapStateToProps = ({authorizationStatus, user}: State) => ({
-  authorizationStatus,
+const mapStateToProps = ({authStatus, user}: State) => ({
+  authStatus,
   user,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onLogOutClick() {
-    dispatch(logoutAction());
+    dispatch(logout());
   },
 });
 
@@ -28,8 +28,8 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = HeaderProps & PropsFromRedux
 
 function Header(props: ConnectedComponentProps): JSX.Element {
-  const {isMainPage, isLoginPage, authorizationStatus, user, onLogOutClick} = props;
-  const isLogged = authorizationStatus === AuthorizationStatus.Auth;
+  const {isMainPage, isLoginPage, authStatus, user, onLogOutClick} = props;
+  const isLogged = authStatus === AuthStatus.Auth;
 
   const handleLogOutClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();

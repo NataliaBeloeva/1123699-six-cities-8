@@ -1,13 +1,23 @@
-import {AuthorizationStatus} from '../const';
-import {Offers} from './offer';
+import {AuthStatus, City, ReviewStatus, SortType} from '../const';
+import {Offer, Offers} from './offer';
+import {Reviews} from './review';
 import {User} from './user';
 
 type State = {
-  currentCity: string;
-  currentSortOption: string;
+  currentCity: City;
+  currentSortOption: SortType;
   offers: Offers;
-  authorizationStatus: AuthorizationStatus;
+  offer: Offer | null;
+  offersNearby: Offers;
+  reviews: Reviews;
+  authStatus: AuthStatus;
   isDataLoaded: boolean;
+  isOfferLoading: boolean;
+  isOfferError: boolean;
+  isOffersNearbyLoaded: boolean;
+  isReviewsLoaded: boolean;
+  isPostReviewError: boolean;
+  reviewStatus: ReviewStatus;
   user: User | null;
 };
 

@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {getRating} from '../../utils/offer';
 import {Offer} from '../../types/offer';
-import {CardType} from '../../const';
+import {AppRoute, CardType} from '../../const';
 
 type CardProps = {
   offer: Offer;
@@ -24,7 +24,6 @@ function Card(props: CardProps): JSX.Element {
   const handleMouseLeave = () => {
     onMouseLeave && onMouseLeave();
   };
-
 
   return (
     <article className={`place-card ${isCitiesCard ? 'cities__place-card' : ''} ${isNearbyCard ? 'near-places__card' : ''}`} id={`${id}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
@@ -54,7 +53,7 @@ function Card(props: CardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Room}${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

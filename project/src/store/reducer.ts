@@ -1,13 +1,22 @@
 import {State} from '../types/state';
 import {Actions, ActionType} from '../types/action';
-import {AuthorizationStatus, City, SortType} from '../const';
+import {AuthStatus, City, ReviewStatus, SortType} from '../const';
 
 const initialState = {
   currentCity: City.Paris,
   currentSortOption: SortType.Popular,
   offers: [],
-  authorizationStatus: AuthorizationStatus.Unknown,
+  offer: null,
+  offersNearby: [],
+  reviews: [],
+  authStatus: AuthStatus.Unknown,
   isDataLoaded: false,
+  isOfferLoading: false,
+  isOfferError: false,
+  isOffersNearbyLoaded: false,
+  isReviewsLoaded: false,
+  isPostReviewError: false,
+  reviewStatus: ReviewStatus.Unknown,
   user: null,
 };
 
@@ -18,30 +27,23 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.SwitchSort:
       return {...state, currentSortOption: action.payload};
     case ActionType.LoadOffers:
-      return {
-        ...state,
-        offers: action.payload,
-        isDataLoaded: true,
-      };
-    case ActionType.RequireAuthorization:
-      return {
-        ...state,
-        authorizationStatus: action.payload,
-      };
+      return {...state, offers: action.payload, isDataLoaded: true};
+    case ActionType.LoadOffer:
+      return {...state, isOfferLoading: true, isOfferError: false};
+    case ActionType.LoadOfferComplete:
+      return {...state, offer: action.payload, isOfferLoading: false};
+    case ActionType.LoadOfferError:
+      return {...state, isOfferLoading: false, isOfferError: true};
+    case ActionType.LoadOffersNearby:
+      return {...state, offersNearby: action.payload, isOffersNearbyLoaded: true};
+    case ActionType.LoadReviews:
+      return {...state, reviews: action.payload, isReviewsLoaded: true, isPostReviewError: false};
+    case ActionType.UploadReview:
+      return {...state, reviewStatus: action.payload};
     case ActionType.UserLogin:
-      return {
-        ...state,
-        user: action.payload,
-        authorizationStatus: AuthorizationStatus.Auth,
-      };
+      return {...state, user: action.payload, authStatus: AuthStatus.Auth};
     case ActionType.UserLogout:
-      return {
-        ...state,
-        user: null,
-        authorizationStatus: AuthorizationStatus.NoAuth,
-      };
-    case ActionType.ResetOffers:
-      return {...initialState};
+      return {...state, user: null, authStatus: AuthStatus.NoAuth};
     default:
       return state;
   }

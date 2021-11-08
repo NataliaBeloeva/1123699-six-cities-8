@@ -1,15 +1,13 @@
-const MAX_OFFERS_NEARBY_COUNT = 3;
-const AUTH_FAIL_MESSAGE = 'Do not forget to log in';
-const LOGIN_FAIL_MESSAGE = 'Please make sure all fields are filled correctly';
+const SERVER_RESPONSE_OK = 200;
 
 enum AppRoute {
   Favorites = '/favorites',
   SignIn = '/login',
-  Room = '/offer/:id',
+  Room = '/offer',
   Root = '/',
 }
 
-enum AuthorizationStatus {
+enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -41,10 +39,24 @@ enum SortType {
   TopRated = 'Top rated first',
 }
 
-enum APIRoute {
-  Hotels = '/hotels',
+enum ApiRoute {
+  Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments'
 }
 
-export {MAX_OFFERS_NEARBY_COUNT, AUTH_FAIL_MESSAGE, LOGIN_FAIL_MESSAGE, AppRoute, AuthorizationStatus, MapType, CardType, City, SortType, APIRoute};
+enum ServiceMessage {
+  AuthFail = 'Do not forget to log in',
+  LoginFail = 'Please make sure all fields are filled correctly',
+  PostReviewFail = 'Something went wrong while posting, please try again',
+}
+
+enum ReviewStatus {
+  Uploading = 'UPLOADING',
+  Uploaded = 'UPLOADED',
+  NotUploaded = 'NOT_UPLOADED',
+  Unknown = 'UNKNOWN',
+}
+
+export {SERVER_RESPONSE_OK, AppRoute, AuthStatus, MapType, CardType, City, SortType, ApiRoute, ServiceMessage, ReviewStatus};

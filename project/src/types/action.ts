@@ -1,29 +1,34 @@
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
-import {AppRoute, AuthorizationStatus} from '../const';
-import {Offers} from './offer';
+import {AppRoute, City, ReviewStatus, SortType} from '../const';
+import {Offer, Offers} from './offer';
 import {State} from './state';
 import {User} from './user';
+import {Reviews} from './review';
 
 enum ActionType {
   SwitchCity = 'main/switchCity',
   SwitchSort = 'main/switchSort',
-  ResetOffers = 'app/reset',
   LoadOffers = 'data/loadOffers',
+  LoadOffer = 'data/loadOffer',
+  LoadOfferComplete = 'data/loadOfferComplete',
+  LoadOfferError = 'data/loadOfferError',
+  LoadOffersNearby = 'data/loadOffersNearby',
+  LoadReviews = 'data/loadReviews',
   RedirectToRoute = 'app/redirectToRoute',
-  RequireAuthorization = 'user/requireAuthorization',
   UserLogin = 'user/login',
   UserLogout = 'user/logout',
+  UploadReview = 'user/uploadReview',
 }
 
 type SwitchCityAction = {
   type: ActionType.SwitchCity;
-  payload: string;
+  payload: City;
 };
 
 type SwitchSortAction = {
   type: ActionType.SwitchSort;
-  payload: string;
+  payload: SortType;
 };
 
 type LoadOffersAction = {
@@ -31,14 +36,33 @@ type LoadOffersAction = {
   payload: Offers;
 };
 
-type ResetOffersAction = {
-  type: ActionType.ResetOffers;
+type LoadOfferAction = {
+  type: ActionType.LoadOffer;
 };
 
-type RequireAuthorizationAction = {
-  type: ActionType.RequireAuthorization;
-  payload: AuthorizationStatus;
+type LoadOfferCompleteAction = {
+  type: ActionType.LoadOfferComplete;
+  payload: Offer;
 };
+
+type LoadOfferErrorAction = {
+  type: ActionType.LoadOfferError;
+};
+
+type LoadOffersNearbyAction = {
+  type: ActionType.LoadOffersNearby;
+  payload: Offers;
+};
+
+type LoadReviewsAction = {
+  type: ActionType.LoadReviews;
+  payload: Reviews;
+};
+
+type UploadReviewAction = {
+  type: ActionType.UploadReview;
+  payload: ReviewStatus;
+}
 
 type UserLoginAction = {
   type: ActionType.UserLogin;
@@ -54,11 +78,11 @@ type RedirectToRouteAction = {
   payload: AppRoute;
 };
 
-type Actions = SwitchCityAction | SwitchSortAction | LoadOffersAction | ResetOffersAction | RequireAuthorizationAction | UserLogoutAction | UserLoginAction | RedirectToRouteAction;
+type Actions = SwitchCityAction | SwitchSortAction | LoadOffersAction | LoadOfferAction | LoadOfferCompleteAction | LoadOfferErrorAction  | LoadOffersNearbyAction | LoadReviewsAction | UploadReviewAction | UserLogoutAction | UserLoginAction | RedirectToRouteAction;
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 
 type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
 
 export {ActionType};
-export type {Actions, SwitchCityAction, SwitchSortAction, LoadOffersAction, ResetOffersAction, RequireAuthorizationAction, UserLogoutAction, UserLoginAction, ThunkActionResult, ThunkAppDispatch, RedirectToRouteAction};
+export type {Actions, SwitchCityAction, SwitchSortAction, LoadOffersAction, LoadOfferAction, LoadOfferCompleteAction, LoadOfferErrorAction, LoadOffersNearbyAction, LoadReviewsAction, UploadReviewAction, UserLogoutAction, UserLoginAction, ThunkActionResult, ThunkAppDispatch, RedirectToRouteAction};
