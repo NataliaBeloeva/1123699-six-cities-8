@@ -7,6 +7,8 @@ import {MapType} from '../../const';
 import {MarkerIconUrl} from './const';
 import useMap from '../../hooks/useMap';
 
+const CITY_ZOOM = 13;
+
 type MapProps = {
   offers: Offers;
   mapType: string;
@@ -36,10 +38,10 @@ function Map(props: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
-      const {location: {latitude, longitude, zoom}} = city;
-      map.flyTo([latitude, longitude], zoom, {
+      const {location: {latitude, longitude}} = city;
+      map.flyTo([latitude, longitude], CITY_ZOOM, {
         animate: true,
-        duration: 2,
+        duration: 1.5,
       });
       offers.forEach((offer) => {
         const marker = new Marker({
@@ -51,10 +53,6 @@ function Map(props: MapProps): JSX.Element {
           .setIcon(selectedPoint !== undefined && offer.id === selectedPoint.id ? currentCustomIcon : defaultCustomIcon)
           .addTo(map);
 
-        // selectedPoint && map.flyTo([offer.location.latitude, offer.location.longitude], offer.location.zoom, {
-        //   animate: true,
-        //   duration: 2,
-        // });
       });
     }
   }, [map, city, offers, selectedPoint]);

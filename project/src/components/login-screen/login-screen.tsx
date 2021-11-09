@@ -3,7 +3,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {State} from '../../types/state';
 import {ThunkAppDispatch} from '../../types/action';
 import {AuthData} from '../../types/auth-data';
-import {loginAction} from '../../store/api-actions';
+import {login} from '../../store/api-action';
 import Header from '../header/header';
 
 const validatePassword = (password: string) => {
@@ -19,7 +19,7 @@ const mapStateToProps = ({currentCity}: State) => ({
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit(authData: AuthData) {
-    dispatch(loginAction(authData));
+    dispatch(login(authData));
   },
 });
 

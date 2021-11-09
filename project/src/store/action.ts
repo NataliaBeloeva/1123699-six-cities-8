@@ -1,14 +1,15 @@
-import {AppRoute, AuthorizationStatus} from '../const';
-import {ActionType, SwitchCityAction, SwitchSortAction, LoadOffersAction, ResetOffersAction, RequireAuthorizationAction, UserLogoutAction, UserLoginAction, RedirectToRouteAction} from '../types/action';
-import {Offers} from '../types/offer';
+import {AppRoute, City, ReviewStatus, SortType} from '../const';
+import {ActionType, SwitchCityAction, SwitchSortAction, LoadOffersAction, LoadOfferAction, LoadOfferCompleteAction, LoadOfferErrorAction, LoadOffersNearbyAction, LoadReviewsAction, UserLogoutAction, UserLoginAction, RedirectToRouteAction, UploadReviewAction} from '../types/action';
+import {Offer, Offers} from '../types/offer';
+import {Reviews} from '../types/review';
 import {User} from '../types/user';
 
-const switchCity = (city: string): SwitchCityAction => ({
+const switchCity = (city: City): SwitchCityAction => ({
   type: ActionType.SwitchCity,
   payload: city,
 });
 
-const switchSort = (sortType: string): SwitchSortAction => ({
+const switchSort = (sortType: SortType): SwitchSortAction => ({
   type: ActionType.SwitchSort,
   payload: sortType,
 });
@@ -18,13 +19,32 @@ const loadOffers = (offers: Offers): LoadOffersAction => ({
   payload: offers,
 });
 
-const resetOffers = (): ResetOffersAction => ({
-  type: ActionType.ResetOffers,
+const loadOffer = (): LoadOfferAction => ({
+  type: ActionType.LoadOffer,
 });
 
-const requireAuthorization = (authStatus: AuthorizationStatus): RequireAuthorizationAction => ({
-  type: ActionType.RequireAuthorization,
-  payload: authStatus,
+const loadOfferComplete = (offer: Offer): LoadOfferCompleteAction => ({
+  type: ActionType.LoadOfferComplete,
+  payload: offer,
+});
+
+const loadOfferError = (): LoadOfferErrorAction => ({
+  type: ActionType.LoadOfferError,
+});
+
+const loadOffersNearby = (offers: Offers): LoadOffersNearbyAction => ({
+  type: ActionType.LoadOffersNearby,
+  payload: offers,
+});
+
+const loadReviews = (reviews: Reviews): LoadReviewsAction => ({
+  type: ActionType.LoadReviews,
+  payload: reviews,
+});
+
+const uploadReview = (postStatus: ReviewStatus): UploadReviewAction => ({
+  type: ActionType.UploadReview,
+  payload: postStatus,
 });
 
 const userLogin = (user: User): UserLoginAction => ({
@@ -41,4 +61,4 @@ const redirectToRoute = (url: AppRoute): RedirectToRouteAction => ({
   payload: url,
 });
 
-export {switchCity, switchSort, loadOffers, resetOffers, requireAuthorization, userLogin, userLogout, redirectToRoute};
+export {switchCity, switchSort, loadOffers, loadOffer, loadOfferComplete, loadOfferError, loadOffersNearby, loadReviews, uploadReview, userLogin, userLogout, redirectToRoute};

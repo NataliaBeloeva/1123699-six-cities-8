@@ -1,8 +1,3 @@
-const initialComment = {
-  rating: '0',
-  text: '',
-};
-
 const ratingStars = [
   {
     title: 'perfect',
@@ -32,4 +27,4 @@ const ratingStars = [
 ];
 
 
-export {initialComment, ratingStars};
+export {ratingStars};

@@ -7,12 +7,11 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {ThunkAppDispatch} from './types/action';
-import {reviews} from './mocks/reviews';
 import App from './components/app/app';
 import {reducer} from './store/reducer';
 import {createAPI} from './services/api';
 import {userLogout} from './store/action';
-import {checkAuthAction, fetchOffersAction} from './store/api-actions';
+import {checkAuth, fetchOffers} from './store/api-action';
 import {redirect} from './store/middlewares/redirect';
 
 const api = createAPI(
@@ -27,14 +26,14 @@ const store = createStore(
   ),
 );
 
-(store.dispatch as ThunkAppDispatch)(checkAuthAction());
-(store.dispatch as ThunkAppDispatch)(fetchOffersAction());
+(store.dispatch as ThunkAppDispatch)(checkAuth());
+(store.dispatch as ThunkAppDispatch)(fetchOffers());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store = {store}>
       <ToastContainer />
-      <App reviews={reviews}/>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
