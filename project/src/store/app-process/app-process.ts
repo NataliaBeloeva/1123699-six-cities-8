@@ -1,21 +1,21 @@
+import {createReducer} from '@reduxjs/toolkit';
 import {City, SortType} from '../../const';
-import {Actions, ActionType} from '../../types/action';
 import {AppProcess} from '../../types/state';
+import {switchCity, switchSort} from '../action';
 
 const initialState: AppProcess = {
   currentCity: City.Paris,
   currentSortOption: SortType.Popular,
 };
 
-const appProcess = (state = initialState, action: Actions): AppProcess => {
-  switch (action.type) {
-    case ActionType.SwitchCity:
-      return {...state, currentCity: action.payload};
-    case ActionType.SwitchSort:
-      return {...state, currentSortOption: action.payload};
-    default:
-      return state;
-  }
-};
+const appProcess = createReducer(initialState, (builder) => {
+  builder
+    .addCase(switchCity, (state, action) => {
+      state.currentCity = action.payload;
+    })
+    .addCase(switchSort, (state, action) => {
+      state.currentSortOption = action.payload;
+    });
+});
 
 export {appProcess};

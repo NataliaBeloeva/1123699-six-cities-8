@@ -1,5 +1,5 @@
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {AppRoute} from '../../const';
 import MainScreen from '../main-screen/main-screen';
 import LoginScreen from '../login-screen/login-screen';
@@ -7,20 +7,11 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropertyScreen from '../property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
-import {State} from '../../types/state';
 import browserHistory from '../../browser-history';
 import {getOffers} from '../../store/offers-data/selectors';
 
-const mapStateToProps = (state: State) => ({
-  offers: getOffers(state),
-});
-
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function App(props: PropsFromRedux): JSX.Element {
-  const {offers} = props;
+function App(): JSX.Element {
+  const offers = useSelector(getOffers);
 
   return (
     <BrowserRouter history={browserHistory}>
@@ -46,5 +37,4 @@ function App(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export {App};
-export default connector(App);
+export default App;

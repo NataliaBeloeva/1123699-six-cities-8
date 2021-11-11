@@ -1,11 +1,9 @@
 import {useEffect, useMemo} from 'react';
 import {useParams} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getRating} from '../../utils/offer';
-import {State} from '../../types/state';
-import {ThunkAppDispatch} from '../../types/action';
 import {fetchOffer, fetchOffersNearby, fetchReviews} from '../../store/api-action';
-import {AuthStatus, CardType, MapType} from '../../const';
+import {AuthStatus, CardType, MapType, MAX_OFFER_IMAGES_COUNT} from '../../const';
 import CommentList from '../comment-list/comment-list';
 import CommentFormScreen from '../comment-form/comment-form';
 import Map from '../map/map';
@@ -17,38 +15,25 @@ import {getIsOfferError, getIsOfferLoading, getIsOffersNearbyLoaded, getOffer, g
 import {getAuthStatus} from '../../store/user-process/selectors';
 import {getIsReviewsLoaded, getReviews} from '../../store/reviews-process/selectors';
 
-const MAX_IMAGES_COUNT = 6;
-
-const mapStateToProps = (state: State) => ({
-  offer: getOffer(state),
-  offersNearby: getOffersNearby(state),
-  isOfferLoading: getIsOfferLoading(state),
-  isOfferError: getIsOfferError(state),
-  isOffersNearbyLoaded: getIsOffersNearbyLoaded(state),
-  authStatus: getAuthStatus(state),
-  reviews: getReviews(state),
-  isReviewsLoaded: getIsReviewsLoaded(state),
-});
-
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  handleFetchOffer: (id: string) => dispatch(fetchOffer(id)),
-  handleFetchOffersNearby: (id: string) => dispatch(fetchOffersNearby(id)),
-  handleFetchReviews: (id: string) => dispatch(fetchReviews(id)),
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function PropertyScreen(props: PropsFromRedux): JSX.Element {
-  const {authStatus, offer, offersNearby, reviews, isOfferLoading, isOfferError, isOffersNearbyLoaded, isReviewsLoaded, handleFetchOffer, handleFetchOffersNearby, handleFetchReviews} = props;
+function PropertyScreen(): JSX.Element {
+  const offer = useSelector(getOffer);
+  const offersNearby = useSelector(getOffersNearby);
+  const isOfferLoading = useSelector(getIsOfferLoading);
+  const isOfferError = useSelector(getIsOfferError);
+  const isOffersNearbyLoaded = useSelector(getIsOffersNearbyLoaded);
+  const authStatus = useSelector(getAuthStatus);
+  const reviews = useSelector(getReviews);
+  const isReviewsLoaded = useSelector(getIsReviewsLoaded);
 
   const {id} = useParams<{id: string}>();
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    handleFetchOffer(id);
-    handleFetchOffersNearby(id);
-    handleFetchReviews(id);
-  },[handleFetchOffer, handleFetchOffersNearby, handleFetchReviews, id]);
+    dispatch(fetchOffer(id));
+    dispatch(fetchOffersNearby(id));
+    dispatch(fetchReviews(id));
+  },[dispatch, id]);
 
   const offers = useMemo(() => {
     if (!offer) {
@@ -70,7 +55,7 @@ function PropertyScreen(props: PropsFromRedux): JSX.Element {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {images.slice(0, MAX_IMAGES_COUNT).map((image) => (
+                {images.slice(0, MAX_OFFER_IMAGES_COUNT).map((image) => (
                   <div key={Math.random()} className="property__image-wrapper">
                     <img className="property__image" src={image} alt="Studio" />
                   </div>
@@ -162,5 +147,4 @@ function PropertyScreen(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export {PropertyScreen};
-export default connector(PropertyScreen);
+export default PropertyScreen;

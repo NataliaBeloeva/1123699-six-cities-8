@@ -1,27 +1,18 @@
 import {useEffect, useRef, useState} from 'react';
-import {Dispatch} from 'redux';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {SortType} from '../../const';
-import {Actions} from '../../types/action';
-import {State} from '../../types/state';
 import {switchSort} from '../../store/action';
+import {getCurrentSortOption} from '../../store/app-process/selectors';
 
-const mapStateToProps = ({APP}: State) => ({
-  currentSortOption: APP.currentSortOption,
-});
+function SortOptions(): JSX.Element {
+  const currentSortOption = useSelector(getCurrentSortOption);
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  handleSortSwitch: (currentSortOption: SortType) => {
-    dispatch(switchSort(currentSortOption));
-  },
-});
+  const dispatch = useDispatch();
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+  const handleSortSwitch = (sortType: SortType) => {
+    dispatch(switchSort(sortType));
+  };
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function SortOptions(props: PropsFromRedux): JSX.Element {
-  const {currentSortOption, handleSortSwitch} = props;
   const [sortOptionCurrent, setSortOptionCurrent] = useState(false);
   const sortRef = useRef<HTMLFormElement | null >(null);
   const toggleSortMenu = () => setSortOptionCurrent((prevSortOption) => !prevSortOption);
@@ -73,5 +64,4 @@ function SortOptions(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export {SortOptions};
-export default connector(SortOptions);
+export default SortOptions;

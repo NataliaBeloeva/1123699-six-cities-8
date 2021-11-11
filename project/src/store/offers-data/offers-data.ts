@@ -1,5 +1,6 @@
-import {Actions, ActionType} from '../../types/action';
+import {createReducer} from '@reduxjs/toolkit';
 import {OffersData} from '../../types/state';
+import {loadOffer, loadOfferComplete, loadOfferError, loadOffers, loadOffersNearby} from '../action';
 
 const initialState: OffersData = {
   offers: [],
@@ -11,21 +12,28 @@ const initialState: OffersData = {
   isOffersNearbyLoaded: false,
 };
 
-const offersData = (state = initialState, action: Actions): OffersData => {
-  switch (action.type) {
-    case ActionType.LoadOffers:
-      return {...state, offers: action.payload, isDataLoaded: true};
-    case ActionType.LoadOffer:
-      return {...state, isOfferLoading: true, isOfferError: false};
-    case ActionType.LoadOfferComplete:
-      return {...state, offer: action.payload, isOfferLoading: false};
-    case ActionType.LoadOfferError:
-      return {...state, isOfferLoading: false, isOfferError: true};
-    case ActionType.LoadOffersNearby:
-      return {...state, offersNearby: action.payload, isOffersNearbyLoaded: true};
-    default:
-      return state;
-  }
-};
+const offersData = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
+      state.isDataLoaded = true;
+    })
+    .addCase(loadOffer, (state, action) => {
+      state.isOfferLoading = true;
+      state.isOfferError = false;
+    })
+    .addCase(loadOfferComplete, (state, action) => {
+      state.offer = action.payload;
+      state.isOfferLoading = false;
+    })
+    .addCase(loadOfferError, (state, action) => {
+      state.isOfferLoading = false;
+      state.isOfferError = true;
+    })
+    .addCase(loadOffersNearby, (state, action) => {
+      state.offersNearby = action.payload;
+      state.isOffersNearbyLoaded = true;
+    });
+});
 
 export {offersData};

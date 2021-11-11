@@ -1,21 +1,23 @@
+import {createReducer} from '@reduxjs/toolkit';
 import {AuthStatus} from '../../const';
-import {Actions, ActionType} from '../../types/action';
 import {UserProcess} from '../../types/state';
+import {userLogin, userLogout} from '../action';
 
 const initialState: UserProcess = {
   authStatus: AuthStatus.Unknown,
   user: null,
 };
 
-const userProcess = (state = initialState, action: Actions): UserProcess => {
-  switch (action.type) {
-    case ActionType.UserLogin:
-      return {...state, user: action.payload, authStatus: AuthStatus.Auth};
-    case ActionType.UserLogout:
-      return {...state, user: null, authStatus: AuthStatus.NoAuth};
-    default:
-      return state;
-  }
-};
+const userProcess = createReducer(initialState, (builder) => {
+  builder
+    .addCase(userLogin, (state, action) => {
+      state.user = action.payload;
+      state.authStatus = AuthStatus.Auth;
+    })
+    .addCase(userLogout, (state) => {
+      state.authStatus = AuthStatus.NoAuth;
+    });
+});
+
 
 export {userProcess};

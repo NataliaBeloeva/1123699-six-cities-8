@@ -9,4 +9,11 @@ const formatDate= (date: string): string => new Date(date).toLocaleDateString('e
 
 const formatDateAttribute = (date: string): string => new Date(date).toLocaleDateString('en-CA');
 
-export {getRating, formatDate, formatDateAttribute};
+const validatePassword = (password: string): string => {
+  if (password.includes(' ')) {
+    return 'Spaces are not allowed in password field';
+  }
+  return '';
+};
+
+export {getRating, formatDate, formatDateAttribute, validatePassword};
