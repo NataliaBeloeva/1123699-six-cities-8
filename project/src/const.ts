@@ -1,4 +1,5 @@
-const SERVER_RESPONSE_OK = 200;
+const HTTP_STATUS_OK = 200;
+const MAX_COMMENT_LENGTH = 300;
 
 enum AppRoute {
   Favorites = '/favorites',
@@ -59,4 +60,4 @@ enum ReviewStatus {
   Unknown = 'UNKNOWN',
 }
 
-export {SERVER_RESPONSE_OK, AppRoute, AuthStatus, MapType, CardType, City, SortType, ApiRoute, ServiceMessage, ReviewStatus};
+export {HTTP_STATUS_OK, MAX_COMMENT_LENGTH, AppRoute, AuthStatus, MapType, CardType, City, SortType, ApiRoute, ServiceMessage, ReviewStatus};

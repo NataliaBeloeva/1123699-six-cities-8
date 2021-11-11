@@ -2,10 +2,11 @@ import {FormEvent, Fragment, useState, ChangeEvent, useEffect} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {ThunkAppDispatch} from '../../types/action';
 import {PostReview} from '../../types/review';
-import {ReviewStatus} from '../../const';
+import {MAX_COMMENT_LENGTH, ReviewStatus} from '../../const';
 import {ratingStars} from './const';
 import {postReview} from '../../store/api-action';
 import {State} from '../../types/state';
+import {getReviewsStatus} from '../../store/reviews-process/selectors';
 
 const MIN_COMMENT_LENGTH = 50;
 
@@ -13,10 +14,10 @@ type CommentFormProps = {
   id: string,
 }
 
-const mapStateToProps = ({reviewStatus}: State) => ({
-  isReviewUploading: reviewStatus === ReviewStatus.Uploading,
-  isReviewUploaded: reviewStatus === ReviewStatus.Uploaded,
-  isReviewNotUploaded: reviewStatus === ReviewStatus.NotUploaded,
+const mapStateToProps = (state: State) => ({
+  isReviewUploading: getReviewsStatus(state) === ReviewStatus.Uploading,
+  isReviewUploaded: getReviewsStatus(state) === ReviewStatus.Uploaded,
+  isReviewNotUploaded: getReviewsStatus(state) === ReviewStatus.NotUploaded,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -85,7 +86,7 @@ function CommentForm(props: ConnectedComponentProps): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        maxLength={300}
+        maxLength={MAX_COMMENT_LENGTH}
         value={comment}
         onChange={handleTextareaChange}
         disabled={isReviewUploading}

@@ -8,18 +8,18 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {ThunkAppDispatch} from './types/action';
 import App from './components/app/app';
-import {reducer} from './store/reducer';
 import {createAPI} from './services/api';
 import {userLogout} from './store/action';
 import {checkAuth, fetchOffers} from './store/api-action';
 import {redirect} from './store/middlewares/redirect';
+import {rootReducer} from './store/root-reducer';
 
 const api = createAPI(
   () => store.dispatch(userLogout()),
 );
 
 const store = createStore(
-  reducer,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
     applyMiddleware(redirect),

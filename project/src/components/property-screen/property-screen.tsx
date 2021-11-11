@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useMemo} from 'react';
 import {useParams} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 import {getRating} from '../../utils/offer';
@@ -13,18 +13,21 @@ import CardList from '../card-list/card-list';
 import Header from '../header/header';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import {getIsOfferError, getIsOfferLoading, getIsOffersNearbyLoaded, getOffer, getOffersNearby} from '../../store/offers-data/selectors';
+import {getAuthStatus} from '../../store/user-process/selectors';
+import {getIsReviewsLoaded, getReviews} from '../../store/reviews-process/selectors';
 
 const MAX_IMAGES_COUNT = 6;
 
-const mapStateToProps = ({authStatus, offer, offersNearby, reviews, isOfferLoading, isOfferError, isOffersNearbyLoaded, isReviewsLoaded}: State) => ({
-  authStatus,
-  offer,
-  offersNearby,
-  reviews,
-  isOfferLoading,
-  isOfferError,
-  isOffersNearbyLoaded,
-  isReviewsLoaded,
+const mapStateToProps = (state: State) => ({
+  offer: getOffer(state),
+  offersNearby: getOffersNearby(state),
+  isOfferLoading: getIsOfferLoading(state),
+  isOfferError: getIsOfferError(state),
+  isOffersNearbyLoaded: getIsOffersNearbyLoaded(state),
+  authStatus: getAuthStatus(state),
+  reviews: getReviews(state),
+  isReviewsLoaded: getIsReviewsLoaded(state),
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -46,6 +49,13 @@ function PropertyScreen(props: PropsFromRedux): JSX.Element {
     handleFetchOffersNearby(id);
     handleFetchReviews(id);
   },[handleFetchOffer, handleFetchOffersNearby, handleFetchReviews, id]);
+
+  const offers = useMemo(() => {
+    if (!offer) {
+      return [];
+    }
+    return [...offersNearby, offer];
+  }, [offer, offersNearby]);
 
   const renderOffer = () => {
 
@@ -121,7 +131,7 @@ function PropertyScreen(props: PropsFromRedux): JSX.Element {
                 </section>
               </div>
             </div>
-            {!isOffersNearbyLoaded ? <LoadingScreen /> : <Map offers={offersNearby} mapType={MapType.Property}/>}
+            {!isOffersNearbyLoaded ? <LoadingScreen /> : <Map offers={offers} mapType={MapType.Property} selectedPoint={offer}/>}
           </section>
           {!isOffersNearbyLoaded ?
             <LoadingScreen /> :

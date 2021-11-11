@@ -1,13 +1,13 @@
 import {useState} from 'react';
 import {Offer, Offers} from '../../types/offer';
-import {CardType, MapType} from '../../const';
+import {CardType, City, MapType} from '../../const';
 import CardList from '../card-list/card-list';
 import MainScreenEmpty from '../main-screen/main-screen-empty';
 import SortOptions from '../sort-options/sort-options';
 import Map from '../map/map';
 
 type CardPageProps = {
-  currentCity: string;
+  currentCity: City;
   offers: Offers;
   hasNoOffers: boolean;
 }

@@ -5,15 +5,16 @@ import {ThunkAppDispatch} from '../../types/action';
 import {State} from '../../types/state';
 import {logout} from '../../store/api-action';
 import Logo from '../logo/logo';
+import {getAuthStatus, getUser} from '../../store/user-process/selectors';
 
 type HeaderProps = {
   isMainPage: boolean;
   isLoginPage: boolean;
 }
 
-const mapStateToProps = ({authStatus, user}: State) => ({
-  authStatus,
-  user,
+const mapStateToProps = (state: State) => ({
+  authStatus: getAuthStatus(state),
+  user: getUser(state),
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

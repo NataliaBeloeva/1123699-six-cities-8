@@ -8,12 +8,14 @@ import Header from '../header/header';
 import LoadingScreen from '../loading-screen/loading-screen';
 import CardPage from '../card-page/card-page';
 import {switchCity} from '../../store/action';
+import {getIsDataLoaded, getOffers} from '../../store/offers-data/selectors';
+import {getCurrentCity, getCurrentSortOption} from '../../store/app-process/selectors';
 
-const mapStateToProps = ({currentCity, offers, currentSortOption, isDataLoaded}: State) => ({
-  currentCity,
-  offers,
-  currentSortOption,
-  isDataLoaded,
+const mapStateToProps = (state: State) => ({
+  offers: getOffers(state),
+  isDataLoaded: getIsDataLoaded(state),
+  currentCity: getCurrentCity(state),
+  currentSortOption: getCurrentSortOption(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
@@ -27,7 +29,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function MainScreen(props: PropsFromRedux): JSX.Element {
-  const {currentCity, offers, currentSortOption, isDataLoaded, handleCitySwitch} = props;
+  const {offers, isDataLoaded, currentCity, currentSortOption, handleCitySwitch} = props;
   const cityOffers = offers.filter((offer) => currentCity === offer.city.name);
   const hasNoOffers = cityOffers.length === 0;
 

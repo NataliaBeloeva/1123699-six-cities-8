@@ -6,8 +6,8 @@ import {Actions} from '../../types/action';
 import {State} from '../../types/state';
 import {switchSort} from '../../store/action';
 
-const mapStateToProps = ({currentSortOption}: State) => ({
-  currentSortOption,
+const mapStateToProps = ({APP}: State) => ({
+  currentSortOption: APP.currentSortOption,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({

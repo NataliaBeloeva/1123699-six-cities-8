@@ -5,6 +5,7 @@ import {ThunkAppDispatch} from '../../types/action';
 import {AuthData} from '../../types/auth-data';
 import {login} from '../../store/api-action';
 import Header from '../header/header';
+import {getCurrentCity} from '../../store/app-process/selectors';
 
 const validatePassword = (password: string) => {
   if (password.includes(' ')) {
@@ -13,8 +14,8 @@ const validatePassword = (password: string) => {
   return '';
 };
 
-const mapStateToProps = ({currentCity}: State) => ({
-  currentCity,
+const mapStateToProps = (state: State) => ({
+  currentCity: getCurrentCity(state),
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

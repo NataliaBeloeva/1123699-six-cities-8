@@ -9,9 +9,10 @@ import PropertyScreen from '../property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
 import {State} from '../../types/state';
 import browserHistory from '../../browser-history';
+import {getOffers} from '../../store/offers-data/selectors';
 
-const mapStateToProps = ({offers}: State) => ({
-  offers,
+const mapStateToProps = (state: State) => ({
+  offers: getOffers(state),
 });
 
 const connector = connect(mapStateToProps);
