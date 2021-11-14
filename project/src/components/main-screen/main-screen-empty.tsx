@@ -1,5 +1,7 @@
+import {City} from '../../const';
+
 type MainScreenEmptyProps = {
-  currentCity: string;
+  currentCity: City;
 }
 
 function MainScreenEmpty({currentCity}: MainScreenEmptyProps): JSX.Element {

@@ -1,24 +1,52 @@
 import {AuthStatus, City, ReviewStatus, SortType} from '../const';
+import {RootState} from '../store/root-reducer';
 import {Offer, Offers} from './offer';
 import {Reviews} from './review';
 import {User} from './user';
 
-type State = {
-  currentCity: City;
-  currentSortOption: SortType;
+// type State = {
+//   currentCity: City;
+//   currentSortOption: SortType;
+//   offers: Offers;
+//   offer: Offer | null;
+//   offersNearby: Offers;
+//   reviews: Reviews;
+//   authStatus: AuthStatus;
+//   isDataLoaded: boolean;
+//   isOfferLoading: boolean;
+//   isOfferError: boolean;
+//   isOffersNearbyLoaded: boolean;
+//   isReviewsLoaded: boolean;
+//   reviewStatus: ReviewStatus;
+//   user: User | null;
+// };
+
+type OffersData = {
   offers: Offers;
   offer: Offer | null;
   offersNearby: Offers;
-  reviews: Reviews;
-  authStatus: AuthStatus;
   isDataLoaded: boolean;
   isOfferLoading: boolean;
   isOfferError: boolean;
   isOffersNearbyLoaded: boolean;
-  isReviewsLoaded: boolean;
-  isPostReviewError: boolean;
-  reviewStatus: ReviewStatus;
+};
+
+type AppProcess = {
+  currentCity: City;
+  currentSortOption: SortType;
+};
+
+type UserProcess = {
+  authStatus: AuthStatus;
   user: User | null;
 };
 
-export type {State};
+type ReviewsProcess = {
+  reviews: Reviews;
+  isReviewsLoaded: boolean;
+  reviewStatus: ReviewStatus;
+};
+
+export type State = RootState;
+
+export type {AppProcess, UserProcess, ReviewsProcess, OffersData};

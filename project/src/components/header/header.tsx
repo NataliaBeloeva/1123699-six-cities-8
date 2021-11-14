@@ -1,40 +1,28 @@
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
-import {ThunkAppDispatch} from '../../types/action';
-import {State} from '../../types/state';
 import {logout} from '../../store/api-action';
 import Logo from '../logo/logo';
+import {getAuthStatus, getUser} from '../../store/user-process/selectors';
 
 type HeaderProps = {
   isMainPage: boolean;
   isLoginPage: boolean;
 }
 
-const mapStateToProps = ({authStatus, user}: State) => ({
-  authStatus,
-  user,
-});
+function Header(props: HeaderProps): JSX.Element {
+  const {isMainPage, isLoginPage} = props;
+  const authStatus = useSelector(getAuthStatus);
+  const user = useSelector(getUser);
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onLogOutClick() {
-    dispatch(logout());
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = HeaderProps & PropsFromRedux
-
-function Header(props: ConnectedComponentProps): JSX.Element {
-  const {isMainPage, isLoginPage, authStatus, user, onLogOutClick} = props;
-  const isLogged = authStatus === AuthStatus.Auth;
+  const dispatch = useDispatch();
 
   const handleLogOutClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
-    onLogOutClick();
+    dispatch(logout());
   };
+
+  const isLogged = authStatus === AuthStatus.Auth;
 
   return (
     <header className="header">
@@ -75,5 +63,4 @@ function Header(props: ConnectedComponentProps): JSX.Element {
   );
 }
 
-export {Header};
-export default connector(Header);
+export default Header;

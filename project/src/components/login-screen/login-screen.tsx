@@ -1,34 +1,15 @@
 import {FormEvent, useRef} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-import {State} from '../../types/state';
-import {ThunkAppDispatch} from '../../types/action';
-import {AuthData} from '../../types/auth-data';
+import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../store/api-action';
+import {validatePassword} from '../../utils/offer';
 import Header from '../header/header';
+import {getCurrentCity} from '../../store/app-process/selectors';
 
-const validatePassword = (password: string) => {
-  if (password.includes(' ')) {
-    return 'Spaces are not allowed in password field';
-  }
-  return '';
-};
 
-const mapStateToProps = ({currentCity}: State) => ({
-  currentCity,
-});
+function LoginScreen(): JSX.Element {
+  const currentCity = useSelector(getCurrentCity);
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSubmit(authData: AuthData) {
-    dispatch(login(authData));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function LoginScreen(props: PropsFromRedux): JSX.Element {
-  const {currentCity, onSubmit} = props;
+  const dispatch = useDispatch();
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -36,11 +17,11 @@ function LoginScreen(props: PropsFromRedux): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current  ) {
-      onSubmit({
+    if (loginRef.current && passwordRef.current) {
+      dispatch(login({
         login: loginRef.current.value,
         password: passwordRef.current.value,
-      });
+      }));
     }
   };
 
@@ -84,5 +65,4 @@ function LoginScreen(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export {LoginScreen};
-export default connector(LoginScreen);
+export default LoginScreen;

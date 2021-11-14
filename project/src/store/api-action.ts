@@ -2,7 +2,7 @@ import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
 import {loadOffers, redirectToRoute, userLogout, userLogin, loadOffer, loadOfferComplete, loadOfferError, loadOffersNearby, loadReviews, uploadReview} from './action';
 import {saveToken, dropToken} from '../services/token';
-import {ApiRoute, AppRoute, ServiceMessage, SERVER_RESPONSE_OK, ReviewStatus} from '../const';
+import {ApiRoute, AppRoute, ServiceMessage, HTTP_STATUS_OK, ReviewStatus} from '../const';
 import {OfferFromServer} from '../types/offer';
 import {AuthData} from '../types/auth-data';
 import {UserFromServer} from '../types/user';
@@ -57,7 +57,7 @@ const checkAuth = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
       const response = await api.get(ApiRoute.Login);
-      if (response.status === SERVER_RESPONSE_OK) {
+      if (response.status === HTTP_STATUS_OK) {
         dispatch(userLogin(adaptUserToClient(response.data)));
       }
     } catch {
