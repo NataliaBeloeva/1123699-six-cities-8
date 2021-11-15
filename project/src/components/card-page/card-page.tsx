@@ -1,10 +1,14 @@
 import {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useHistory} from 'react-router';
 import {Offer, Offers} from '../../types/offer';
-import {CardType, City, MapType} from '../../const';
+import {AppRoute, AuthStatus, CardType, City, MapType} from '../../const';
 import CardList from '../card-list/card-list';
 import MainScreenEmpty from '../main-screen/main-screen-empty';
 import SortOptions from '../sort-options/sort-options';
 import Map from '../map/map';
+import {changeFavoriteStatus} from '../../store/api-action';
+import {getAuthStatus} from '../../store/user-process/selectors';
 
 type CardPageProps = {
   currentCity: City;
@@ -14,6 +18,10 @@ type CardPageProps = {
 
 function CardPage(props: CardPageProps): JSX.Element {
   const {currentCity, offers, hasNoOffers} = props;
+  const authStatus = useSelector(getAuthStatus);
+
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const [selectedCard, setSelectedCard] = useState<Offer | undefined>(undefined);
 
@@ -26,6 +34,14 @@ function CardPage(props: CardPageProps): JSX.Element {
     setSelectedCard(undefined);
   };
 
+  const handleFavoriteClick = (offerId: number, isFavorite: boolean) => {
+    if (authStatus !== AuthStatus.Auth) {
+      history.push(AppRoute.SignIn);
+      return;
+    }
+    dispatch(changeFavoriteStatus(offerId, isFavorite));
+  };
+
   return (
     <div className="cities">
       {hasNoOffers ?
@@ -36,7 +52,7 @@ function CardPage(props: CardPageProps): JSX.Element {
             <b className="places__found">{offers.length} places to stay in {currentCity}</b>
             <SortOptions />
             <div className="cities__places-list places__list tabs__content">
-              <CardList offers={offers} cardType={CardType.City} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave}/>
+              <CardList offers={offers} cardType={CardType.City} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave} handleFavoriteClick={handleFavoriteClick}/>
             </div>
           </section>
           <div className="cities__right-section">

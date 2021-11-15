@@ -44,6 +44,41 @@ const loadOffersNearby = createAction(
   }),
 );
 
+const updateOffers = createAction(
+  ActionType.UpdateOffers,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+
+const updateOffer = createAction(
+  ActionType.UpdateOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+
+const updateOffersNearby = createAction(
+  ActionType.UpdateOffersNearby,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+
+const loadFavorites = createAction(
+  ActionType.LoadFavorites,
+  (offers: Offers) => ({
+    payload: offers,
+  }),
+);
+
+const updateFavorites = createAction(
+  ActionType.UpdateFavorites,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+
 const loadReviews = createAction(
   ActionType.LoadReviews,
   (reviews: Reviews) => ({
@@ -74,4 +109,4 @@ const redirectToRoute = createAction(
   }),
 );
 
-export {switchCity, switchSort, loadOffers, loadOffer, loadOfferComplete, loadOfferError, loadOffersNearby, loadReviews, uploadReview, userLogin, userLogout, redirectToRoute};
+export {switchCity, switchSort, loadOffers, loadOffer, loadOfferComplete, loadOfferError, loadOffersNearby, updateOffers, updateOffer, updateOffersNearby, loadFavorites, updateFavorites, loadReviews, uploadReview, userLogin, userLogout, redirectToRoute};

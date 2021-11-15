@@ -11,11 +11,16 @@ enum ActionType {
   LoadOfferComplete = 'data/loadOfferComplete',
   LoadOfferError = 'data/loadOfferError',
   LoadOffersNearby = 'data/loadOffersNearby',
+  UpdateOffers = 'data/updateOffers',
+  UpdateOffer = 'data/updateOffer',
+  UpdateOffersNearby = 'data/updateOfferNearby',
+  LoadFavorites = 'data/loadFavorites',
+  UpdateFavorites = 'data/updateFavorites',
   LoadReviews = 'data/loadReviews',
+  UploadReview = 'user/uploadReview',
   RedirectToRoute = 'app/redirectToRoute',
   UserLogin = 'user/login',
   UserLogout = 'user/logout',
-  UploadReview = 'user/uploadReview',
 }
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;

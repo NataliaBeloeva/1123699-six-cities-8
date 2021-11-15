@@ -1,79 +1,92 @@
-import {getRating} from '../../utils/offer';
-import {Offers} from '../../types/offer';
+/* eslint-disable no-console */
+import {Link} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRoute, CardType, City} from '../../const';
 import Header from '../header/header';
+import {getIsOffersFavoriteLoaded, getOffersFavorite} from '../../store/favorites-data/selectors';
+import {useEffect} from 'react';
+import {changeFavoriteStatus, fetchFavorites} from '../../store/api-action';
+import LoadingScreen from '../loading-screen/loading-screen';
+import FavoritesScreenEmpty from '../favorites-screen/favorites-screen-empty';
+import CardList from '../card-list/card-list';
+import {switchCity, updateFavorites} from '../../store/action';
 
-type FavoritesScreenProps = {
-  offers: Offers;
-};
 
-function FavoritesScreen({offers}: FavoritesScreenProps): JSX.Element {
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+function FavoritesScreen(): JSX.Element {
+  const offersFavoriteInitial = useSelector(getOffersFavorite);
+  const offersFavorite = offersFavoriteInitial.filter((offer) => offer.isFavorite);
+  const isOffersFavoriteLoaded = useSelector(getIsOffersFavoriteLoaded);
+
+  const hasNoOffers = offersFavorite.length === 0;
+  const cities = [...new Set(offersFavorite.map((offer) => offer.city.name))];
+
+  const dispatch = useDispatch();
+
+  const handleFavoriteClick = (offerId: number, isFavorite: boolean) => {
+    dispatch(changeFavoriteStatus(
+      offerId,
+      isFavorite,
+      (updatedOffer) => {
+        dispatch(updateFavorites(updatedOffer));
+      },
+    ));
+  };
+
+  const handleCitySwitch = (city: City) => {
+    dispatch(switchCity(city));
+  };
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  },[dispatch]);
+
+  const renderFavorites = () => (
+    <div className="page__favorites-container container">
+      {hasNoOffers ?
+        <FavoritesScreenEmpty /> :
+        <section className="favorites">
+          <h1 className="favorites__title">Saved listing</h1>
+          <ul className="favorites__list">
+            {cities.map((place) => {
+              const cityOffers = offersFavorite.filter((offer) => offer.city.name === place);
+              return (
+                <li key={Math.random()} className="favorites__locations-items">
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <Link
+                        to={AppRoute.Root}
+                        className="locations__item-link" href="#/"
+                        onClick={() => {
+                          handleCitySwitch(place as City);
+                        }}
+                      >
+                        <span>{place}</span>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="favorites__places">
+                    <CardList offers={cityOffers} cardType={CardType.Favorite} handleFavoriteClick={handleFavoriteClick}/>
+                  </div>
+                </li>
+              );
+            })};
+          </ul>
+        </section>}
+    </div>
+  );
 
   return (
-    <div className="page">
+    <div className={`page ${hasNoOffers ? 'page--favorites-empty' : ''}`}>
       <Header isMainPage={false} isLoginPage={false} />
-
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#/">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  {favoriteOffers.map((offer) => {
-                    const {id, isFavorite, previewImage, price, rating, title, type} = offer;
-
-                    return (
-                      <article key={id} className="favorites__card place-card" id={`${id}`}>
-                        <div className="favorites__image-wrapper place-card__image-wrapper">
-                          <a href="#/">
-                            <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place" />
-                          </a>
-                        </div>
-                        <div className="favorites__card-info place-card__info">
-                          <div className="place-card__price-wrapper">
-                            <div className="place-card__price">
-                              <b className="place-card__price-value">&euro;{price}</b>
-                              <span className="place-card__price-text">&#47;&nbsp;night</span>
-                            </div>
-                            <button className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button">
-                              <svg className="place-card__bookmark-icon" width="18" height="19">
-                                <use xlinkHref="#icon-bookmark"></use>
-                              </svg>
-                              <span className="visually-hidden">In bookmarks</span>
-                            </button>
-                          </div>
-                          <div className="place-card__rating rating">
-                            <div className="place-card__stars rating__stars">
-                              <span style={{width: `${getRating(rating)}%`}}></span>
-                              <span className="visually-hidden">Rating</span>
-                            </div>
-                          </div>
-                          <h2 className="place-card__name">
-                            <a href="#/">{title}</a>
-                          </h2>
-                          <p className="place-card__type">{type}</p>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </li>
-            </ul>
-          </section>
-        </div>
+      <main className={`page__main page__main--favorites ${hasNoOffers ? 'page__main--favorites-empty' : ''}`}>
+        {!isOffersFavoriteLoaded ?
+          <LoadingScreen /> :
+          renderFavorites()}
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link to={AppRoute.Root} className="footer__logo-link" href="main.html">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
+        </Link>
       </footer>
     </div>
   );

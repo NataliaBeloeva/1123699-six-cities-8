@@ -1,18 +1,26 @@
 import {FormEvent, useRef} from 'react';
+import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../store/api-action';
 import {validatePassword} from '../../utils/offer';
 import Header from '../header/header';
 import {getCurrentCity} from '../../store/app-process/selectors';
+import {AppRoute, AuthStatus, City} from '../../const';
+import {switchCity} from '../../store/action';
+import {getAuthStatus} from '../../store/user-process/selectors';
 
 
 function LoginScreen(): JSX.Element {
   const currentCity = useSelector(getCurrentCity);
-
+  const authStatus = useSelector(getAuthStatus);
   const dispatch = useDispatch();
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  if (authStatus === AuthStatus.Auth) {
+    return <Redirect to={AppRoute.Root}/>;
+  }
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -30,6 +38,10 @@ function LoginScreen(): JSX.Element {
       passwordRef.current.setCustomValidity(validatePassword(passwordRef.current.value));
       passwordRef.current.reportValidity();
     }
+  };
+
+  const handleCitySwitch = (city: City) => {
+    dispatch(switchCity(city));
   };
 
   return (
@@ -54,9 +66,15 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#/">
+              <Link
+                to={AppRoute.Root}
+                className="locations__item-link" href="#/"
+                onClick={() => {
+                  handleCitySwitch(currentCity);
+                }}
+              >
                 <span>{currentCity}</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

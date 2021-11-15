@@ -1,3 +1,4 @@
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
@@ -11,6 +12,7 @@ type HeaderProps = {
 }
 
 function Header(props: HeaderProps): JSX.Element {
+
   const {isMainPage, isLoginPage} = props;
   const authStatus = useSelector(getAuthStatus);
   const user = useSelector(getUser);
@@ -63,4 +65,4 @@ function Header(props: HeaderProps): JSX.Element {
   );
 }
 
-export default Header;
+export default React.memo(Header);

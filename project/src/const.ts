@@ -1,6 +1,7 @@
 const HTTP_STATUS_OK = 200;
 const MAX_COMMENT_LENGTH = 300;
 const MAX_OFFER_IMAGES_COUNT = 6;
+const MAX_REVIEWS_AMOUNT = 10;
 
 enum AppRoute {
   Favorites = '/favorites',
@@ -23,6 +24,7 @@ enum MapType {
 enum CardType {
   City = 'CITY',
   Nearby ='NEARBY',
+  Favorite ='FAVORITE',
 }
 
 enum City {
@@ -45,7 +47,8 @@ enum ApiRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
-  Comments = '/comments'
+  Comments = '/comments',
+  Favorites = '/favorite'
 }
 
 enum ServiceMessage {
@@ -61,4 +64,4 @@ enum ReviewStatus {
   Unknown = 'UNKNOWN',
 }
 
-export {HTTP_STATUS_OK, MAX_COMMENT_LENGTH, MAX_OFFER_IMAGES_COUNT, AppRoute, AuthStatus, MapType, CardType, City, SortType, ApiRoute, ServiceMessage, ReviewStatus};
+export {HTTP_STATUS_OK, MAX_COMMENT_LENGTH, MAX_OFFER_IMAGES_COUNT, MAX_REVIEWS_AMOUNT, AppRoute, AuthStatus, MapType, CardType, City, SortType, ApiRoute, ServiceMessage, ReviewStatus};

@@ -1,12 +1,14 @@
+import React from 'react';
 import {City} from '../../const';
 
 type CityListProps = {
-  currentCity: string;
+  currentCity: City;
   handleCitySwitch: (city: City) => void;
 }
 
 function CityList(props: CityListProps): JSX.Element {
   const {currentCity, handleCitySwitch} = props;
+
   return (
     <>
       <h1 className="visually-hidden">Cities</h1>
@@ -37,4 +39,4 @@ function CityList(props: CityListProps): JSX.Element {
   );
 }
 
-export default CityList;
+export default React.memo(CityList, (prevProps, nextProps) => prevProps.currentCity === nextProps.currentCity);

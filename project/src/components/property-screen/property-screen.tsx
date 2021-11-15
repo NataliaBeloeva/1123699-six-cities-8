@@ -1,9 +1,9 @@
 import {useEffect, useMemo} from 'react';
-import {useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {getRating} from '../../utils/offer';
-import {fetchOffer, fetchOffersNearby, fetchReviews} from '../../store/api-action';
-import {AuthStatus, CardType, MapType, MAX_OFFER_IMAGES_COUNT} from '../../const';
+import {changeFavoriteStatus, fetchOffer, fetchOffersNearby, fetchReviews} from '../../store/api-action';
+import {AppRoute, AuthStatus, CardType, MapType, MAX_OFFER_IMAGES_COUNT} from '../../const';
 import CommentList from '../comment-list/comment-list';
 import CommentFormScreen from '../comment-form/comment-form';
 import Map from '../map/map';
@@ -14,6 +14,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {getIsOfferError, getIsOfferLoading, getIsOffersNearbyLoaded, getOffer, getOffersNearby} from '../../store/offers-data/selectors';
 import {getAuthStatus} from '../../store/user-process/selectors';
 import {getIsReviewsLoaded, getReviews} from '../../store/reviews-process/selectors';
+import {updateOffer, updateOffersNearby} from '../../store/action';
 
 function PropertyScreen(): JSX.Element {
   const offer = useSelector(getOffer);
@@ -26,8 +27,38 @@ function PropertyScreen(): JSX.Element {
   const isReviewsLoaded = useSelector(getIsReviewsLoaded);
 
   const {id} = useParams<{id: string}>();
-
+  const history = useHistory();
   const dispatch = useDispatch();
+
+  const handleFavoriteClick = () => {
+    if (authStatus !== AuthStatus.Auth) {
+      history.push(AppRoute.SignIn);
+      return;
+    }
+    if (offer) {
+      dispatch(changeFavoriteStatus(
+        offer.id,
+        offer.isFavorite,
+        (updatedOffer) => {
+          dispatch(updateOffer(updatedOffer));
+        },
+      ));
+    }
+  };
+
+  const handleNearbyOfferFavoriteClick = (offerId: number, isFavorite: boolean) => {
+    if (authStatus !== AuthStatus.Auth) {
+      history.push(AppRoute.SignIn);
+      return;
+    }
+    dispatch(changeFavoriteStatus(
+      offerId,
+      isFavorite,
+      (updatedOffer) => {
+        dispatch(updateOffersNearby(updatedOffer));
+      },
+    ));
+  };
 
   useEffect(() => {
     dispatch(fetchOffer(id));
@@ -67,7 +98,7 @@ function PropertyScreen(): JSX.Element {
                 {isPremium && <div className="property__mark"><span>Premium</span></div>}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">{title}</h1>
-                  <button className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
+                  <button className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`} type="button" onClick={handleFavoriteClick}>
                     <svg className="property__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>
@@ -124,7 +155,7 @@ function PropertyScreen(): JSX.Element {
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <div className="near-places__list places__list">
-                  <CardList offers={offersNearby} cardType={CardType.Nearby} />
+                  <CardList offers={offersNearby} cardType={CardType.Nearby} handleFavoriteClick={handleNearbyOfferFavoriteClick}/>
                 </div>
               </section>
             </div>}

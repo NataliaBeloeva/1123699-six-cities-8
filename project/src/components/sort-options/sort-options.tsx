@@ -1,3 +1,4 @@
+import React from 'react';
 import {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {SortType} from '../../const';
@@ -64,4 +65,4 @@ function SortOptions(): JSX.Element {
   );
 }
 
-export default SortOptions;
+export default React.memo(SortOptions);

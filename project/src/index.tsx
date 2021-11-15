@@ -30,7 +30,7 @@ store.dispatch(fetchOffers());
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store = {store}>
+    <Provider store={store}>
       <ToastContainer />
       <App />
     </Provider>
