@@ -4,23 +4,6 @@ import {Offer, Offers} from './offer';
 import {Reviews} from './review';
 import {User} from './user';
 
-// type State = {
-//   currentCity: City;
-//   currentSortOption: SortType;
-//   offers: Offers;
-//   offer: Offer | null;
-//   offersNearby: Offers;
-//   reviews: Reviews;
-//   authStatus: AuthStatus;
-//   isDataLoaded: boolean;
-//   isOfferLoading: boolean;
-//   isOfferError: boolean;
-//   isOffersNearbyLoaded: boolean;
-//   isReviewsLoaded: boolean;
-//   reviewStatus: ReviewStatus;
-//   user: User | null;
-// };
-
 type OffersData = {
   offers: Offers;
   offer: Offer | null;
@@ -29,6 +12,11 @@ type OffersData = {
   isOfferLoading: boolean;
   isOfferError: boolean;
   isOffersNearbyLoaded: boolean;
+};
+
+type FavoritesData = {
+  offersFavorite: Offers;
+  isOffersFavoriteLoaded: boolean;
 };
 
 type AppProcess = {
@@ -49,4 +37,4 @@ type ReviewsProcess = {
 
 export type State = RootState;
 
-export type {AppProcess, UserProcess, ReviewsProcess, OffersData};
+export type {AppProcess, UserProcess, ReviewsProcess, OffersData, FavoritesData};

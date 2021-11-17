@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useMemo} from 'react';
 import {Offer, Offers} from '../../types/offer';
 import {MapType} from '../../const';
 import {MarkerIconUrl} from './const';
@@ -29,7 +29,7 @@ const currentCustomIcon = new Icon({
 
 function Map(props: MapProps): JSX.Element {
   const {offers, mapType, selectedPoint} = props;
-  const city = offers[0];
+  const city = useMemo(() => offers[0], [offers]);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 

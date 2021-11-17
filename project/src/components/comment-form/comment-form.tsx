@@ -23,27 +23,27 @@ function CommentForm(props: CommentFormProps): JSX.Element {
 
   const dispatch = useDispatch();
 
-  const [rating, setRating] = useState('');
-  const [comment, setСomment] = useState('');
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
   const isFormComplete = comment.length > MIN_COMMENT_LENGTH && Boolean(rating);
 
   const handleRadioChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setRating(evt.target.value);
+    setRating(Number(evt.target.value));
   };
 
   const handleTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setСomment(evt.target.value);
+    setComment(evt.target.value);
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(postReview({comment, rating: Number(rating)}, id));
+    dispatch(postReview({comment, rating}, id));
   };
 
   useEffect(() => {
     if (isReviewUploaded) {
-      setRating('');
-      setСomment('');
+      setRating(0);
+      setComment('');
     }
   }, [isReviewUploaded]);
 
@@ -51,19 +51,19 @@ function CommentForm(props: CommentFormProps): JSX.Element {
     <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {ratingStars.map((star) => (
-          <Fragment key={`${star.value}`}>
+        {ratingStars.map(({value, title}) => (
+          <Fragment key={`${value}`}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
               type="radio"
-              value={`${star.value}`}
-              id={star.id}
-              checked={star.value === Number(rating)}
+              value={`${value}`}
+              id={`${value}-stars`}
+              checked={value === rating}
               onChange={handleRadioChange}
               disabled={isReviewUploading}
             />
-            <label htmlFor={star.id} className="reviews__rating-label form__rating-label" title={star.title}>
+            <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>

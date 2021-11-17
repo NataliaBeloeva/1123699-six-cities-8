@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {OffersData} from '../../types/state';
-import {loadOffer, loadOfferComplete, loadOfferError, loadOffers, loadOffersNearby} from '../action';
+import {loadOffer, loadOfferComplete, loadOfferError, loadOffers, loadOffersNearby, updateOffer, updateOffers, updateOffersNearby} from '../action';
 
 const initialState: OffersData = {
   offers: [],
@@ -18,7 +18,7 @@ const offersData = createReducer(initialState, (builder) => {
       state.offers = action.payload;
       state.isDataLoaded = true;
     })
-    .addCase(loadOffer, (state, action) => {
+    .addCase(loadOffer, (state) => {
       state.isOfferLoading = true;
       state.isOfferError = false;
     })
@@ -26,13 +26,32 @@ const offersData = createReducer(initialState, (builder) => {
       state.offer = action.payload;
       state.isOfferLoading = false;
     })
-    .addCase(loadOfferError, (state, action) => {
+    .addCase(loadOfferError, (state) => {
       state.isOfferLoading = false;
       state.isOfferError = true;
     })
     .addCase(loadOffersNearby, (state, action) => {
       state.offersNearby = action.payload;
       state.isOffersNearbyLoaded = true;
+    })
+    .addCase(updateOffers, (state, action) => {
+      state.offers = state.offers.map((offer) => {
+        if (offer.id !== action.payload.id) {
+          return offer;
+        }
+        return action.payload;
+      });
+    })
+    .addCase(updateOffer, (state, action) => {
+      state.offer = action.payload;
+    })
+    .addCase(updateOffersNearby, (state, action) => {
+      state.offersNearby = state.offersNearby.map((offer) => {
+        if (offer.id !== action.payload.id) {
+          return offer;
+        }
+        return action.payload;
+      });
     });
 });
 
