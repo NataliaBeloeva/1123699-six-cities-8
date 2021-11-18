@@ -155,7 +155,7 @@ function PropertyScreen(): JSX.Element {
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <div className="near-places__list places__list">
-                  <CardList offers={offersNearby} cardType={CardType.Nearby} handleFavoriteClick={handleNearbyOfferFavoriteClick}/>
+                  <CardList offers={offersNearby} cardType={CardType.Nearby} onFavoriteClick={handleNearbyOfferFavoriteClick}/>
                 </div>
               </section>
             </div>}

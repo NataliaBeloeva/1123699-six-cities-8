@@ -41,7 +41,7 @@ function Card(props: CardProps): JSX.Element {
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`place-card__image-wrapper ${isCitiesCard ? 'cities__image-wrapper' : ''} ${isFavoriteCard ? 'favorites__image-wrapper' : ''}`}>
-        <Link to={`/offer/${id}`}>
+        <Link to={`${AppRoute.Room}/${id}`}>
           <img className="place-card__image"
             src={previewImage}
             width={!isFavoriteCard ? CardImageSize.default.width : CardImageSize.favorite.width}
@@ -70,7 +70,7 @@ function Card(props: CardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Room}${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Room}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

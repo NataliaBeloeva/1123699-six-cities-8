@@ -1,5 +1,4 @@
 const HTTP_STATUS_OK = 200;
-const MAX_COMMENT_LENGTH = 300;
 const MAX_OFFER_IMAGES_COUNT = 6;
 const MAX_REVIEWS_AMOUNT = 10;
 
@@ -53,7 +52,6 @@ enum ApiRoute {
 
 enum ServiceMessage {
   AuthFail = 'Do not forget to log in',
-  LoginFail = 'Please make sure all fields are filled correctly',
   PostReviewFail = 'Something went wrong while posting, please try again',
 }
 
@@ -64,4 +62,9 @@ enum ReviewStatus {
   Unknown = 'UNKNOWN',
 }
 
-export {HTTP_STATUS_OK, MAX_COMMENT_LENGTH, MAX_OFFER_IMAGES_COUNT, MAX_REVIEWS_AMOUNT, AppRoute, AuthStatus, MapType, CardType, City, SortType, ApiRoute, ServiceMessage, ReviewStatus};
+enum CommentLength  {
+  MIN = 50,
+  MAX = 300,
+}
+
+export {HTTP_STATUS_OK, MAX_OFFER_IMAGES_COUNT, MAX_REVIEWS_AMOUNT, AppRoute, AuthStatus, MapType, CardType, City, SortType, ApiRoute, ServiceMessage, ReviewStatus, CommentLength};

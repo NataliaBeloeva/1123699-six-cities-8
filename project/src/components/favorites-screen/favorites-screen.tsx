@@ -65,7 +65,7 @@ function FavoritesScreen(): JSX.Element {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    <CardList offers={cityOffers} cardType={CardType.Favorite} handleFavoriteClick={handleFavoriteClick}/>
+                    <CardList offers={cityOffers} cardType={CardType.Favorite} onFavoriteClick={handleFavoriteClick}/>
                   </div>
                 </li>
               );

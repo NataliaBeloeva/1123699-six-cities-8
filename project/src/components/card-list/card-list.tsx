@@ -4,17 +4,17 @@ import Card from '../card/card';
 type CardListProps = {
   offers: Offers;
   cardType: string;
-  handleCardMouseEnter?: (offerId: number) => void;
-  handleCardMouseLeave?: () => void;
-  handleFavoriteClick?: (offerId: number, isFavorite: boolean) => void;
+  onMouseEnter?: (offerId: number) => void;
+  onMouseLeave?: () => void;
+  onFavoriteClick?: (offerId: number, isFavorite: boolean) => void;
 }
 
 function CardList(props: CardListProps): JSX.Element {
-  const {offers, cardType, handleCardMouseEnter, handleCardMouseLeave, handleFavoriteClick} = props;
+  const {offers, cardType, onMouseEnter, onMouseLeave, onFavoriteClick} = props;
 
   return (
     <>
-      {offers.map((offer) => <Card key={offer.id} offer={offer} cardType={cardType} onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave}  onFavoriteClick={handleFavoriteClick} />)}
+      {offers.map((offer) => <Card key={offer.id} offer={offer} cardType={cardType} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}  onFavoriteClick={onFavoriteClick} />)}
     </>
   );
 }

@@ -24,7 +24,7 @@ function MainScreen(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header isMainPage isLoginPage={false}/>
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${hasNoOffers ? 'page__main--index-empty' : ''}`}>
         <CityList currentCity={currentCity} handleCitySwitch={handleCitySwitch}/>
         {!isDataLoaded ?
           <LoadingScreen /> :

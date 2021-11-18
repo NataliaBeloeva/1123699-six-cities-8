@@ -80,14 +80,10 @@ const checkAuth = (): ThunkActionResult =>
 
 const login = ({login: email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    try {
-      const {data} = await api.post<UserFromServer>(ApiRoute.Login, {email, password});
-      saveToken(data.token);
-      dispatch(userLogin(adaptUserToClient(data)));
-      dispatch(redirectToRoute(AppRoute.Root));
-    } catch {
-      toast.warn(ServiceMessage.LoginFail);
-    }
+    const {data} = await api.post<UserFromServer>(ApiRoute.Login, {email, password});
+    saveToken(data.token);
+    dispatch(userLogin(adaptUserToClient(data)));
+    dispatch(redirectToRoute(AppRoute.Root));
   };
 
 const logout = (): ThunkActionResult =>

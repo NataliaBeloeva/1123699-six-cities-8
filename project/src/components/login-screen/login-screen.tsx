@@ -2,13 +2,12 @@ import {FormEvent, useRef} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../store/api-action';
-import {validatePassword} from '../../utils/offer';
+import {validateEmail, validatePassword} from '../../utils/offer';
 import Header from '../header/header';
 import {getCurrentCity} from '../../store/app-process/selectors';
 import {AppRoute, AuthStatus, City} from '../../const';
 import {switchCity} from '../../store/action';
 import {getAuthStatus} from '../../store/user-process/selectors';
-
 
 function LoginScreen(): JSX.Element {
   const currentCity = useSelector(getCurrentCity);
@@ -33,8 +32,12 @@ function LoginScreen(): JSX.Element {
     }
   };
 
-  const handleInputChange = () => {
-    if (loginRef.current !== null && passwordRef.current !== null) {
+  const handleInputChange = (evt: FormEvent<HTMLFormElement>) => {
+    if (evt.target === loginRef.current) {
+      loginRef.current.setCustomValidity(validateEmail(loginRef.current.value));
+      loginRef.current.reportValidity();
+    }
+    if (evt.target === passwordRef.current) {
       passwordRef.current.setCustomValidity(validatePassword(passwordRef.current.value));
       passwordRef.current.reportValidity();
     }

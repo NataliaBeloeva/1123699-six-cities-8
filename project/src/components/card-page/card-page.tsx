@@ -52,7 +52,7 @@ function CardPage(props: CardPageProps): JSX.Element {
             <b className="places__found">{offers.length} places to stay in {currentCity}</b>
             <SortOptions />
             <div className="cities__places-list places__list tabs__content">
-              <CardList offers={offers} cardType={CardType.City} handleCardMouseEnter={handleCardMouseEnter} handleCardMouseLeave={handleCardMouseLeave} handleFavoriteClick={handleFavoriteClick}/>
+              <CardList offers={offers} cardType={CardType.City} onMouseEnter={handleCardMouseEnter} onMouseLeave={handleCardMouseLeave} onFavoriteClick={handleFavoriteClick}/>
             </div>
           </section>
           <div className="cities__right-section">

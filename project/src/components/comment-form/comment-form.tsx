@@ -1,11 +1,9 @@
 import {FormEvent, Fragment, useState, ChangeEvent, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {MAX_COMMENT_LENGTH, ReviewStatus} from '../../const';
+import {CommentLength, ReviewStatus} from '../../const';
 import {ratingStars} from './const';
 import {postReview} from '../../store/api-action';
 import {getReviewsStatus} from '../../store/reviews-process/selectors';
-
-const MIN_COMMENT_LENGTH = 50;
 
 type CommentFormProps = {
   id: string,
@@ -25,7 +23,7 @@ function CommentForm(props: CommentFormProps): JSX.Element {
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
-  const isFormComplete = comment.length > MIN_COMMENT_LENGTH && Boolean(rating);
+  const isFormComplete = comment.length > CommentLength.MIN && rating > 0;
 
   const handleRadioChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(evt.target.value));
@@ -76,7 +74,7 @@ function CommentForm(props: CommentFormProps): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        maxLength={MAX_COMMENT_LENGTH}
+        maxLength={CommentLength.MAX}
         value={comment}
         onChange={handleTextareaChange}
         disabled={isReviewUploading}
