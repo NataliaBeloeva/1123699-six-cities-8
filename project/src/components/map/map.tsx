@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useRef, useEffect, useMemo} from 'react';
 import {Offer, Offers} from '../../types/offer';
 import {MapType} from '../../const';
 import {MarkerIconUrl} from './const';
-import useMap from '../../hooks/useMap';
-
-const CITY_ZOOM = 13;
+import useMap from '../../hooks/use-map/useMap';
 
 type MapProps = {
   offers: Offers;
@@ -38,11 +35,6 @@ function Map(props: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
-      const {location: {latitude, longitude}} = city;
-      map.flyTo([latitude, longitude], CITY_ZOOM, {
-        animate: true,
-        duration: 1.5,
-      });
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,

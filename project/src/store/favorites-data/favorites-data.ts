@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {createReducer} from '@reduxjs/toolkit';
 import {FavoritesData} from '../../types/state';
 import {loadFavorites, updateFavorites} from '../action';

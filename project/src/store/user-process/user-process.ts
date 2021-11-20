@@ -15,6 +15,7 @@ const userProcess = createReducer(initialState, (builder) => {
       state.authStatus = AuthStatus.Auth;
     })
     .addCase(userLogout, (state) => {
+      state.user = null;
       state.authStatus = AuthStatus.NoAuth;
     });
 });

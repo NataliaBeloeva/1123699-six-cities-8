@@ -1,4 +1,4 @@
-import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {ThunkAction} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {Action} from 'redux';
 import {State} from './state';
@@ -16,6 +16,7 @@ enum ActionType {
   UpdateOffersNearby = 'data/updateOfferNearby',
   LoadFavorites = 'data/loadFavorites',
   UpdateFavorites = 'data/updateFavorites',
+  ResetOffers = 'data/resetOffers',
   LoadReviews = 'data/loadReviews',
   UploadReview = 'user/uploadReview',
   RedirectToRoute = 'app/redirectToRoute',
@@ -25,7 +26,5 @@ enum ActionType {
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
-type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Action>;
-
 export {ActionType};
-export type {ThunkActionResult, ThunkAppDispatch};
+export type {ThunkActionResult};

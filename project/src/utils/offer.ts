@@ -26,4 +26,6 @@ const validateEmail = (email: string): string => {
   return '';
 };
 
-export {getRating, formatDate, formatDateAttribute, validatePassword, validateEmail};
+const capitalizeFirstLetter = (string: string): string => string.charAt(0).toUpperCase() + string.slice(1);
+
+export {getRating, formatDate, formatDateAttribute, validatePassword, validateEmail, capitalizeFirstLetter};

@@ -79,6 +79,8 @@ const updateFavorites = createAction(
   }),
 );
 
+const resetOffers = createAction(ActionType.ResetOffers);
+
 const loadReviews = createAction(
   ActionType.LoadReviews,
   (reviews: Reviews) => ({
@@ -109,4 +111,4 @@ const redirectToRoute = createAction(
   }),
 );
 
-export {switchCity, switchSort, loadOffers, loadOffer, loadOfferComplete, loadOfferError, loadOffersNearby, updateOffers, updateOffer, updateOffersNearby, loadFavorites, updateFavorites, loadReviews, uploadReview, userLogin, userLogout, redirectToRoute};
+export {switchCity, switchSort, loadOffers, loadOffer, loadOfferComplete, loadOfferError, loadOffersNearby, updateOffers, updateOffer, updateOffersNearby, loadFavorites, updateFavorites, resetOffers, loadReviews, uploadReview, userLogin, userLogout, redirectToRoute};

@@ -1,7 +1,7 @@
 import {useEffect, useMemo} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {getRating} from '../../utils/offer';
+import {capitalizeFirstLetter, getRating} from '../../utils/offer';
 import {changeFavoriteStatus, fetchOffer, fetchOffersNearby, fetchReviews} from '../../store/api-action';
 import {AppRoute, AuthStatus, CardType, MapType, MAX_OFFER_IMAGES_COUNT} from '../../const';
 import CommentList from '../comment-list/comment-list';
@@ -113,7 +113,7 @@ function PropertyScreen(): JSX.Element {
                   <span className="property__rating-value rating__value">{rating}</span>
                 </div>
                 <ul className="property__features">
-                  <li className="property__feature property__feature--entire">{type}</li>
+                  <li className="property__feature property__feature--entire">{capitalizeFirstLetter(type)}</li>
                   <li className="property__feature property__feature--bedrooms">{bedrooms} Bedrooms</li>
                   <li className="property__feature property__feature--adults">Max {maxAdults} adults</li>
                 </ul>

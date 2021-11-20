@@ -51,7 +51,9 @@ enum ApiRoute {
 }
 
 enum ServiceMessage {
+  ServerFail = 'Server is not responding, please try again later',
   AuthFail = 'Do not forget to log in',
+  LoginFail = 'Please make sure all fields are filled in correctly',
   PostReviewFail = 'Something went wrong while posting, please try again',
 }
 

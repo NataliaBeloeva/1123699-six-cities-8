@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, CardType} from '../../const';
 import {CardImageSize} from './const';
-import {getRating} from '../../utils/offer';
+import {capitalizeFirstLetter, getRating} from '../../utils/offer';
 import {Offer} from '../../types/offer';
 
 type CardProps = {
@@ -72,7 +72,7 @@ function Card(props: CardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`${AppRoute.Room}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalizeFirstLetter(type)}</p>
       </div>
     </article>
   );

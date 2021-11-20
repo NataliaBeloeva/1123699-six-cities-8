@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {OffersData} from '../../types/state';
-import {loadOffer, loadOfferComplete, loadOfferError, loadOffers, loadOffersNearby, updateOffer, updateOffers, updateOffersNearby} from '../action';
+import {loadOffer, loadOfferComplete, loadOfferError, loadOffers, loadOffersNearby, resetOffers, updateOffer, updateOffers, updateOffersNearby} from '../action';
 
 const initialState: OffersData = {
   offers: [],
@@ -52,6 +52,19 @@ const offersData = createReducer(initialState, (builder) => {
         }
         return action.payload;
       });
+    })
+    .addCase(resetOffers, (state) => {
+      state.offers = state.offers.map((offer) => ({
+        ...offer,
+        isFavorite: false,
+      }));
+      state.offersNearby = state.offersNearby.map((offer) => ({
+        ...offer,
+        isFavorite: false,
+      }));
+      if (state.offer) {
+        state.offer = {...state.offer, isFavorite: false};
+      }
     });
 });
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRoute, CardType, City} from '../../const';
