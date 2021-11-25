@@ -5,13 +5,13 @@ import {Offer, Offers} from '../../types/offer';
 import {getCurrentCity, getCurrentSortOption} from '../app-process/selectors';
 import {SortType} from '../../const';
 
-const getOffers = (state: State): Offers => state[NameSpace.data].offers;
-const getOffer = (state: State): Offer | null => state[NameSpace.data].offer;
-const getOffersNearby = (state: State): Offers => state[NameSpace.data].offersNearby;
-const getIsDataLoaded = (state: State): boolean => state[NameSpace.data].isDataLoaded;
-const getIsOfferLoading = (state: State): boolean => state[NameSpace.data].isOfferLoading;
-const getIsOfferError = (state: State): boolean => state[NameSpace.data].isOfferError;
-const getIsOffersNearbyLoaded = (state: State): boolean => state[NameSpace.data].isOffersNearbyLoaded;
+const getOffers = (state: State): Offers => state[NameSpace.Data].offers;
+const getOffer = (state: State): Offer | null => state[NameSpace.Data].offer;
+const getOffersNearby = (state: State): Offers => state[NameSpace.Data].offersNearby;
+const getIsDataLoaded = (state: State): boolean => state[NameSpace.Data].isDataLoaded;
+const getIsOfferLoading = (state: State): boolean => state[NameSpace.Data].isOfferLoading;
+const getIsOfferError = (state: State): boolean => state[NameSpace.Data].isOfferError;
+const getIsOffersNearbyLoaded = (state: State): boolean => state[NameSpace.Data].isOffersNearbyLoaded;
 
 const getCityOffers = createSelector(
   [getOffers, getCurrentCity],

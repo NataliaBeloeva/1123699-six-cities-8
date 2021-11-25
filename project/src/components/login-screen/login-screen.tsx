@@ -2,15 +2,16 @@ import {FormEvent, useRef} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../store/api-action';
-import {validateEmail, validatePassword} from '../../utils/offer';
+import {getRandomPositiveInteger, validateEmail, validatePassword} from '../../utils/offer';
 import Header from '../header/header';
-import {getCurrentCity} from '../../store/app-process/selectors';
 import {AppRoute, AuthStatus, City} from '../../const';
 import {switchCity} from '../../store/action';
 import {getAuthStatus} from '../../store/user-process/selectors';
 
+const cities = Object.values(City);
+const randomCity = cities[getRandomPositiveInteger(0, Object.keys(cities).length - 1)];
+
 function LoginScreen(): JSX.Element {
-  const currentCity = useSelector(getCurrentCity);
   const authStatus = useSelector(getAuthStatus);
   const dispatch = useDispatch();
 
@@ -58,11 +59,11 @@ function LoginScreen(): JSX.Element {
             <form className="login__form form" action="#" method="post" onSubmit={handleSubmit} onChange={handleInputChange}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input ref={loginRef} className="login__input form__input" type="email" name="email" placeholder="Email" required />
+                <input ref={loginRef} className="login__input form__input" type="email" name="email" placeholder="Email" required data-testid="email" />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required />
+                <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required data-testid="password"/>
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
@@ -73,10 +74,10 @@ function LoginScreen(): JSX.Element {
                 to={AppRoute.Root}
                 className="locations__item-link" href="#/"
                 onClick={() => {
-                  handleCitySwitch(currentCity);
+                  handleCitySwitch(randomCity as City);
                 }}
               >
-                <span>{currentCity}</span>
+                <span>{randomCity as City}</span>
               </Link>
             </div>
           </section>

@@ -28,4 +28,11 @@ const validateEmail = (email: string): string => {
 
 const capitalizeFirstLetter = (string: string): string => string.charAt(0).toUpperCase() + string.slice(1);
 
-export {getRating, formatDate, formatDateAttribute, validatePassword, validateEmail, capitalizeFirstLetter};
+const getRandomPositiveInteger = (a: number, b: number): number => {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
+
+export {getRating, formatDate, formatDateAttribute, validatePassword, validateEmail, capitalizeFirstLetter, getRandomPositiveInteger};

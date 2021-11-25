@@ -15,7 +15,7 @@ function CommentList({reviews}: ReviewsListProps): JSX.Element {
   [reviews]);
 
   return (
-    <ul className="reviews__list">
+    <ul className="reviews__list" data-testid="reviews">
       {reviewsShown.map((review) => <Comment key={review.id} review={review} />)}
     </ul>
   );

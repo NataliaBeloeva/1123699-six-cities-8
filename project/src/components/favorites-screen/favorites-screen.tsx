@@ -10,7 +10,6 @@ import FavoritesScreenEmpty from '../favorites-screen/favorites-screen-empty';
 import CardList from '../card-list/card-list';
 import {switchCity, updateFavorites} from '../../store/action';
 
-
 function FavoritesScreen(): JSX.Element {
   const offersFavoriteInitial = useSelector(getOffersFavorite);
   const offersFavorite = offersFavoriteInitial.filter((offer) => offer.isFavorite);
@@ -43,7 +42,7 @@ function FavoritesScreen(): JSX.Element {
     <div className="page__favorites-container container">
       {hasNoOffers ?
         <FavoritesScreenEmpty /> :
-        <section className="favorites">
+        <section className="favorites" data-testid="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
             {cities.map((place) => {

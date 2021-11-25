@@ -11,12 +11,12 @@ const initialState: UserProcess = {
 const userProcess = createReducer(initialState, (builder) => {
   builder
     .addCase(userLogin, (state, action) => {
-      state.user = action.payload;
       state.authStatus = AuthStatus.Auth;
+      state.user = action.payload;
     })
     .addCase(userLogout, (state) => {
-      state.user = null;
       state.authStatus = AuthStatus.NoAuth;
+      state.user = null;
     });
 });
 

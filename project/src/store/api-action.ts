@@ -2,7 +2,7 @@ import {toast} from 'react-toastify';
 import {ThunkActionResult} from '../types/action';
 import {loadOffers, redirectToRoute, userLogout, userLogin, loadOffer, loadOfferComplete, loadOfferError, loadOffersNearby, loadReviews, uploadReview, updateOffers, loadFavorites, resetOffers} from './action';
 import {saveToken, dropToken} from '../services/token';
-import {ApiRoute, AppRoute, ServiceMessage, HTTP_STATUS_OK, ReviewStatus} from '../const';
+import {ApiRoute, AppRoute, ServiceMessage, ReviewStatus, HttpCode} from '../const';
 import {Offer, OfferFromServer} from '../types/offer';
 import {AuthData} from '../types/auth-data';
 import {UserFromServer} from '../types/user';
@@ -89,7 +89,7 @@ const checkAuth = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
       const response = await api.get(ApiRoute.Login);
-      if (response.status === HTTP_STATUS_OK) {
+      if (response.status === HttpCode.StatusOk) {
         dispatch(userLogin(adaptUserToClient(response.data)));
       }
     } catch {
@@ -111,10 +111,14 @@ const login = ({login: email, password}: AuthData): ThunkActionResult =>
 
 const logout = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    api.delete(ApiRoute.Logout);
-    dropToken();
-    dispatch(userLogout());
-    dispatch(resetOffers());
+    try {
+      api.delete(ApiRoute.Logout);
+      dropToken();
+      dispatch(userLogout());
+      dispatch(resetOffers());
+    } catch {
+      toast.warn(ServiceMessage.ServerFail);
+    }
   };
 
 export {fetchOffers, fetchOffer, fetchOffersNearby, fetchFavorites, changeFavoriteStatus, fetchReviews, postReview, checkAuth, login, logout};

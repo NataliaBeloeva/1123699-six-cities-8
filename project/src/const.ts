@@ -1,4 +1,3 @@
-const HTTP_STATUS_OK = 200;
 const MAX_OFFER_IMAGES_COUNT = 6;
 const MAX_REVIEWS_AMOUNT = 10;
 
@@ -69,4 +68,9 @@ enum CommentLength  {
   MAX = 300,
 }
 
-export {HTTP_STATUS_OK, MAX_OFFER_IMAGES_COUNT, MAX_REVIEWS_AMOUNT, AppRoute, AuthStatus, MapType, CardType, City, SortType, ApiRoute, ServiceMessage, ReviewStatus, CommentLength};
+enum HttpCode {
+  StatusOk = 200,
+  NoContent = 204,
+}
+
+export {MAX_OFFER_IMAGES_COUNT, MAX_REVIEWS_AMOUNT, AppRoute, AuthStatus, MapType, CardType, City, SortType, ApiRoute, ServiceMessage, ReviewStatus, CommentLength, HttpCode};

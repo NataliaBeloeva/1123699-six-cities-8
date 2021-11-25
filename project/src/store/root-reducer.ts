@@ -6,19 +6,19 @@ import {reviewsProcess} from './reviews-process/reviews-process';
 import {userProcess} from './user-process/user-process';
 
 enum NameSpace {
-  data = 'DATA',
-  favorites = 'FAVORITES',
-  app = 'APP',
-  user = 'USER',
-  reviews = 'REVIEWS',
+  Data = 'DATA',
+  Favorites = 'FAVORITES',
+  App = 'APP',
+  User = 'USER',
+  Reviews = 'REVIEWS',
 }
 
 const rootReducer = combineReducers({
-  [NameSpace.data]: offersData,
-  [NameSpace.favorites]: favoritesData,
-  [NameSpace.app]: appProcess,
-  [NameSpace.user]: userProcess,
-  [NameSpace.reviews]: reviewsProcess,
+  [NameSpace.Data]: offersData,
+  [NameSpace.Favorites]: favoritesData,
+  [NameSpace.App]: appProcess,
+  [NameSpace.User]: userProcess,
+  [NameSpace.Reviews]: reviewsProcess,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
