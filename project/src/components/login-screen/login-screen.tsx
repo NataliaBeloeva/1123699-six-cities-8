@@ -1,4 +1,4 @@
-import {FormEvent, useRef} from 'react';
+import {FormEvent, useMemo, useRef} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../store/api-action';
@@ -8,12 +8,11 @@ import {AppRoute, AuthStatus, City} from '../../const';
 import {switchCity} from '../../store/action';
 import {getAuthStatus} from '../../store/user-process/selectors';
 
-const cities = Object.values(City);
-const randomCity = cities[getRandomPositiveInteger(0, Object.keys(cities).length - 1)];
-
 function LoginScreen(): JSX.Element {
   const authStatus = useSelector(getAuthStatus);
   const dispatch = useDispatch();
+
+  const randomCity = useMemo(() => Object.values(City)[getRandomPositiveInteger(0, Object.values(City).length - 1)], []);
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
